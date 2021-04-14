@@ -1,0 +1,99 @@
+What is Singleton Design Pattern?
+When do we call a Class as Singleton Class?
+
+For a given class if it allows us to create only one object for it within the scope of application, then that class is said to be singleton class.
+by default when we declare a class in Java it doesnt act as Singleton, we need to write the code in a way to make the class as singleton.
+
+How to make class as singleton?
+#1 by default any of the classes in our application can create object of any class. If want a specific class to be singleton for e.g.. lets say VoiceRecognizer then stop all the classes of our application allowing them to create the object.so, that we can gain control over object creation for that class.
+How to stop other classes in creating the object of our class?
+  Make the default constructor of VoiceRecognizer as private, so that no other class can access its constructor thus we stop the other classes to create the object of our class.
+
+public class VoiceRecognizer {
+  private VoiceRecognizer(){}
+}
+
+by the above we restricted the object creation but it doesnt becomes singleton. So there are many ways we can make the above class as Singleton as shown below.
+  
+#1 Eager instantiation mechanism.
+static variables are class level variables where only one copy of the memory is allocated to them, and are initialized only once during the time of loading the class into jvm memory.
+
+Here VoiceRecognizer only can create the object by itself, so lets have a static variable of VoiceRecognizer type which is initialized with its object by using the private constructor.
+As static variable gets initialized only once during the time of loading, only one object of that class would be created hence we can distribute the same object to all the classes in the application.
+  
+class VoiceRecongnizer {
+  private static VoiceRecognizer instance = new VoiceRecognizer();
+  
+  private VoiceRecognizer() {}
+  
+  public static VoiceRecognizer getInstance() {
+    return instance;
+  }
+}  
+
+class Messenger {
+  void readMessage() {
+    VoiceRecognizer voiceRecognizer = VoiceRecognizer.getInstance();
+    System.out.println("Messenger : "+ voiceRecognizer.hashCode());
+  }
+}  
+class Caller {
+  void listen() {
+    VoiceRecognizer voiceRecognizer = VoiceRecognizer.getInstance();
+    System.out.println("Caller :" + voiceRecognizer.hashCode());
+  }
+}
+  
+class Test {
+  public static void main(String[] args) {
+    Messenger messenger = new Messenger();
+    messenger.readMessage();
+    
+    Caller caller = new Caller();
+    caller.listen();
+  }
+}  
+  
+As the object of the class is being created much before we use the object, which means it got created at the time of loading the class ifself this is called "Eager Instantiation"  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

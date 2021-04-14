@@ -1,0 +1,118 @@
+What are Factory classes what is the purpose of them?
+Factories are used for creating the object of other classes in our application?
+
+Why do we need to use Factories for creating the object of other classes?
+There are 2 reasons why we use Factories
+1. To abstract/hide complexity in instantiating the object of another class of our application.
+2. To hide the classname of another class in creating the object of the class, so that we can achieve loose coupling
+
+
+interface LoanManager {
+  double applicableInterestRate(double principle, long tenure);
+}
+There are several types of loans are there like
+1. Home Loans
+2. Personal Loans
+3. Automobile Loans
+
+Each of these has different algorithms of calculator interestApplicable, so we need several sub-classes each pertaining to loan type from LoanManager interface.
+  
+class HomeLoanManager implements LoanManager {
+  private String propertyType;
+  private String city;
+  
+  public HomeLoanManager(String propertyType, String city) {}    
+  public double applicableInterestRate(double principle, long tenure) {
+    return 8.75;
+  }
+}  
+
+class PersonalLoanManager implements LoanManager {
+  private String occupation;
+  private double grossAnnualIncome;
+  
+  public PersonalLoan(String occupation, double grossAnnualIncome) {}
+  public double applicableInterestRate(double principle, long tenure) {
+    return 13.75;
+  }
+}
+
+class CorporateAndPersonalLoanManager implements LoanManager {
+  private String occupation;
+  private double grossAnnualIncome;
+  private String organization;
+  
+  public PersonalLoan(String occupation, double grossAnnualIncome) {}
+  public double applicableInterestRate(double principle, long tenure) {
+    if(organization != null) {
+      if(organization.equals("google")) {
+        return 10.75;
+      }
+    }
+    return 16.25;
+  }
+}
+  
+  
+class LoanEstimater {
+  private LoanManager loanManager;
+  
+  public void 
+    estimateInterestAmountForHomeLoan(String propertyType, String city, double principle, long tenure) {
+    double applicableInterestRate = 0;
+    double interestAmountToBePaid = 0;
+    
+    loanManager = LoanManagerFactory.createLoanManager("home");
+    ((HomeLoanManager)loanManager).setPropertyType(propertyType);
+    ((HomeLoanManager)loanManager).setCity(city);
+    
+    applicableInterestRate = loanManager.applicableInterestRate(principle, tenure);
+    interestAmountToBePaid = (principle * tenure * applicableInterestTate)/100;
+    return interestAmountToBePaid;    
+  }
+  
+  public void estimateInterestAmoutForPersonalLoan(String occupation, double grossIncome, double principle, long tenure) {
+        double applicableInterestRate = 0;
+    double interestAmountToBePaid = 0;
+    
+    loanManager = LoanManagerFactory.createLoanManager("personal");
+    ((PersonalLoanManager)loanManager).setOccupation(occupation);
+    ((PersonalLoanManager)loanManager).setAnnualGrossIncome(grossIncome);
+    
+    applicableInterestRate = loanManager.applicableInterestRate(principle, tenure);
+    interestAmountToBePaid = (principle * tenure * applicableInterestTate)/100;
+    return interestAmountToBePaid;
+  }
+}  
+  
+  
+class LoanManagerFactory {
+  public static LoanManager createLoanManager(String loanType) {
+    LoanManager loanManager = null;
+    if(loanType.equals("home")) {
+      loanManager = new HomeLoanManager();
+    }else if(loanType.equals("personal")) {
+      loanManager = new CorporateAndPersonalLoanManager();
+    }
+    
+    return loanManager;
+  }
+}  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

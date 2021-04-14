@@ -1,0 +1,58 @@
+Template Method Design Pattern
+We have an Pre-Defined algorithm with fixed set of steps to be executed in a specified order. But few steps are differing from one implementation to the other. As few steps are different we need to write the code for executing these steps (applying the algorithm) in corresponding sub-classes only, due to which the code for applying algorithm gets duplicated across all the implements of the component base class.
+
+That is where use Template Method design pattern.
+  1. identify the steps that are common across multiple sub classes of your application and place them in super class.
+  2. identify the differening steps across the sub-classes interms of their implementation and declare those methods as abstract methods as part of super class
+  3. As super class has been declared with all of the steps required to apply, now we can write algorithm in executing these steps as part of the super class itself, thus enabling reusability of the algorith across all the sub classes.
+The method in which we have written the algorithm of executing all the steps to accomplish the outcome is called "Template Method".
+  
+  
+  
+abstract class A {
+  void m1() {}
+  void m2() {} 
+  abstract int m3(int i);
+  
+  void algorithm() {
+    m1();
+    m2();
+    m3(2);
+  }
+}
+
+class B extends A {
+  int m3(int i) {}  
+}
+
+class C extends A {  
+  int m3(int i) {}  
+}
+----------------------------------------------------------------------------------------------------------------
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

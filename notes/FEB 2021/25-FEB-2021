@@ -1,0 +1,185 @@
+db.properties
+class ConnectionFactory {
+  public static Connection newConnection() {}
+}
+
+class ObjectFactory {
+  public T <T> getObject(Class<T> clazz) {}
+}
+
+
+class AlbumDao {
+  public Map<Integer, String> getAlbums() {
+    Connection con = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    Map<Integer, String> albumsMap = null;
+    
+    con = ConnectionFactory.newConnection();
+    stmt = con.createStatement();
+    rs = stmt.executeQuery("select album_no, album_nm from album");
+    albumsMap = new HashMap<>();
+    while(rs.next()) {
+      albumsMap.put(rs.getInt(0), rs.getString(1));
+    }
+    return albumsMap;
+  }
+  
+  public int getFirstPhoto(int albumNo) {
+    Connection con = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    int photoNo = 0;
+    
+    con = ConnectionFactory.newConnection();
+    pstmt = con.prepareStatement("select min(photo_no) from photos where album_no = ?");
+    pstmt.setInt(1, albumNo);
+    rs = stmt.executeQuery();
+    if(rs.next()) {
+      photoNo = rs.getInt(1);
+    }
+    return photoNo;
+  }
+  public byte[] getPhotoImageContent(int photoNo) {
+    Connection con = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    byte[] imageContent = 0;
+    
+    con = ConnectionFactory.newConnection();
+    pstmt = con.prepareStatement("select image_content from photos where photo_no = ?");
+    pstmt.setInt(1, albumNo);
+    rs = stmt.executeQuery();
+    if(rs.next()) {
+      imageContent = rs.getBlob(1);
+    }
+    return imageContent;
+  }
+}
+
+class AlbumService {
+  private AlbumDao albumDao;
+  
+  public AlbumService() {
+    albumDao = ObjectFactory.getObject(AlbumDao.class);
+  }
+  
+  public Map<Integer, String> getAlbums() {
+    return albumDao.getAlbums();  
+  }
+  public int getFirstPhoto(int albumNo) {
+    return  albumDao.getFirstPhoto(albumNo);
+  }
+  public byte[] getPhotoImageContent(int photoNo) {
+    return albumDao.getPhotoImageContent(int photoNo);
+  }
+}
+
+@WebServlet(urlPatterns = {"/gallery"})
+public class GalleryServlet extends HttpServlet {
+  private AlbumService albumService;
+  
+  public void init() {
+    albumService = ObjectFactory.getObject(AlbumService.class);  
+  }
+  
+  public void service(HttpServletRequest request, HttpServletResponse response) {
+    Map<Integer, String> albumsMap = null;
+    String albumNo = null;
+    int photoNo = 0;
+    
+    albumNo = request.getParameter("albumNo");
+    
+    if(album != null && album.trim().length > 0) {
+      photoNo = albumService.getFirstPhoto(Integer.parseInt(albumNo));
+      
+      request.setAttribute("photoNo", photoNo);      
+    }
+    
+    albumsMap = albumService.getAlbums();
+    request.setAttribute("albumNo", albumNo);
+    request.setAttribute("albums", albums);  
+    
+    
+    request.getRequestDispatcher("/gallery.jsp").forward(request, response);
+  }
+}
+
+gallery.jsp
+-------------
+<script type="text/javascript">
+
+  function onChangeAlbum() {
+    document.forms[0].submit();
+  }
+</script>
+
+<form name="galleryForm" action="${pageContext.request.contextPath/gallery}" method="get">
+  <select name="albumNo" onchange="javascript:onChangeAlbum();">
+    <option value="">select</option>
+    <c:forEach items="${albums}" var="entry">
+      <c:choose>
+        <c:when test="${albumNo eq entry.key}">
+          <option value="${entry.key}" selected="selected">${entry.value}</option>
+        </c:when>
+        <c:otherwise>
+          <option value="${entry.key}">${entry.value}</option>
+        </c:otherwise>
+      </c:choose>      
+    </c:forEach>
+  </select>  
+<form>
+<!-- Photo -->
+<div>
+  <c:if test="${photoNo ne 0}">
+    <img src="${pageContext.request.contextPath}/photo?photoNo=${photoNo}">
+  </c:if>
+</div>
+
+@WebServlet("/photo")
+class PhotoServlet extends HttpServlet {
+  private AlbumService albumService;
+  
+  public void init() {
+    albumService = ObjectFactory.getObject(AlbumService.class);  
+  }
+  
+  public void service(req, resp) {
+    String photoNo = null;
+    byte[] imageContent = null;
+    
+    photoNo = req.getParameter("photoNo");
+    imageContent = albumService.getPhotoImageContent(Integer.parseInt(photoNo));
+    
+    resp.setHeader("Content-Disposition", "inline");
+    resp.getWriter().write(imageContent);
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

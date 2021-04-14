@@ -1,0 +1,192 @@
+
+class VoiceRecognizer  {
+  private static VoiceRecognizer instance;
+  private VoiceRecognizer() {}
+  
+  public static VoiceRecognizer getInstance() {
+    if(instance == null) {
+      synchronized(VoiceRecognizer.class) {
+        if(instance == null) {
+          instance = new VoiceRecognizer();
+        }  
+      }  
+    }
+        
+    return instance;
+  }
+}
+
+VoiceRecognizer voiceRecognizer1 = VoiceRecognizer.getInstance();
+VoiceRecognizer voiceRecognizer2 = voiceRecognizer1.clone();
+
+The best practise to be followed in writing a class as singleton is, it is recommended to implements your class from Cloneable interface and override clone method and throw CloneNotSupportedException.
+
+class Metrics implements Cloneable {
+  public Object clone() throws CloneNotSupportedException {
+    return super.clone();
+  }
+}  
+  
+class VoiceRecognizer  extends Metrics implements Cloneable {
+  private static VoiceRecognizer instance;
+  private VoiceRecognizer() {}
+  
+  public static VoiceRecognizer getInstance() {
+    if(instance == null) {
+      synchronized(VoiceRecognizer.class) {
+        if(instance == null) {
+          instance = new VoiceRecognizer();
+        }  
+      }  
+    }
+        
+    return instance;
+  }
+  public Object clone() throws CloneNotSupportedException {
+    throw new CloneNotSupportedException();
+  }
+}
+
+The above code safeguards your class even though your super class is cloneable.
+  
+
+----------------------------------------------------------------------------------------------------------------------
+package java.lang;
+class Object  {- 11 methods
+  - hashCode()
+  - equals()
+  - protected Object clone() throws CloneNotSupportedException {}
+  - toString()
+  - finalize()
+  - wait()
+  - wait(long)
+  - wait(long, int)
+  - notify()
+  - notifyAll()
+  - getClass()
+}
+  
+package pkg1;  
+class A implements Cloneable {
+  int i;
+  void setI(int i){}
+  
+  public Object clone() throws CloneNotSupportedException {
+    return super.clone();
+  }
+}
+
+
+A a1 = new A();
+a1.setI(10);
+
+//A a2 = a1; // in java objects works by references this will not make another copy of a1 rather a2 points to a1
+A a2 = a1.clone(); // only way to make copy of the object is clone()
+
+
+by default clone() method is not accessible because it has been declared in Object class with protected access modifier.
+  
+cloning is really dangerous = because we can shoot up the jvm memory quickly which lands into memory issues. that is where java allows cloning process in a controlled way.
+  
+Jvm will not clone object of any class unless the class is implementing from Cloneable interface. Note: Cloneable interface is an marker interface, it doesnt have any methods. But it is the way through which we restrict the class to be cloned.
+  
+  
+  
+
+int i = 10;
+int j = i;
+// primitive types works by copy
+
+
+How many types of clone are there?
+There are 2 types 
+1. shallow cloning = only primitive attribtues of an object will be cloned but class/object type attributes will not participate in cloning
+
+2. deep cloning = even object type attributes also will gets cloned.
+
+class A {
+  int i;
+  B b;
+  // setters
+  public Object clone() throws CloneNotSupportedException {
+    return super.clone();
+  }
+}  
+
+class B {
+  int j;
+  // setters
+  public Object clone() throws CloneNotSupportedException {
+    return super.clone();
+  }
+}
+
+B b = new B();
+b.setJ(10);
+
+A a= new A();
+a.setI(11);
+a.setB(b);
+
+A a2 = a.clone();
+
+
+  
+  
+  
+  
+  
+  
+class A implements Cloneable {
+  void m1() {
+    A a2 = this.clone();
+  }
+  
+  public Object clone() throws CloneNotSupportedException { // then other classes also can clone your class objects
+    return super.clone();
+  }
+} 
+
+A a = new A();
+A a2 = a.clone(); // can i call this method it is private in class A, so we cannot access outside the class
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

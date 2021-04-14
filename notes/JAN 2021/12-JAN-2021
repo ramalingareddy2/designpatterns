@@ -1,0 +1,84 @@
+There are 5 layers in designing and developing a Jee application
+1. Client-Tier
+2. Presentation-Tier
+3. Business Tier
+4. Integration Tier
+5. Resource Tier
+
+Now while working with above layers we encounter different problems respective to the nature of code we are writing, so jee developers has identified the problems and documented the solutions and published in the catalog pertaining to the layer in which they appear.
+
+So the jee design patterns are distributed into 3 pattern catalogs
+1. Presentation Tier
+  Intercepting Filter (Y)
+  Front Controller (Y)
+  Context Object (Y)
+  Application Controller (Y)
+  View Helper
+  Composite View
+  Service To Worker
+  Dispatcher View (Y)
+  
+2. Business Tier
+  Business Delegate (Y)
+  Service Locator (Y)
+  Session Facade (Y)
+  Application Service
+  Business Object (Y)
+  Composite Entity
+  Transfer Object (Y)
+  Transfer Object Assembler
+  Value List Handler (Y)
+
+3. Integration Tier
+  Data Access Object (Y)
+  Service Activator
+  Domain Store
+  Web Service Broker
+-----------------------------------------------------------------------------------------------------------------------
+Singleton Design Pattern
+If for a given class it allows us to create only one single object for it, then that class is called Singleton class.
+(or)
+If for a class we can create only one object within the scope of application, then we can call is as "Singleton Class".
+
+
+by default a class in Java is not singleton, so what we should do to make the class as Singleton class?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,174 @@
+what is pagination?
+its a process of displaying only the subset of records page by out of a large dataset of records on an user interface is called "pagination".
+  
+What are the advantages of pagination?  
+1. as we access only few data records of the application performance of the application will be fast
+2. utilization of system resources will be minimal, so no chance of running into out of memory problems even though we handle large datasets
+3. low consumption of network bandwidth
+4. end-user friendly as he can quickly identify the information from the limited set of records we displayed.
+
+  
+To implement pagination we need to consider below parameters
+1. sortColumn = based on which column data, should be sorted and displayed
+2. pageSize = records per page
+3. pageNo = what is the pageNo of the records we are navigating
+
+pageSize = 10
+pageNo = 2
+11
+  
+(pageNo-1) * pageSize + 1
+  
+
+class StockDao {
+  public int getCountStocks() {
+    int c = 0;
+      try(Connection con = ConnectionFactory.newConnection(); 
+    Statement stmt = con.createStatement();) {
+      startIndex = ((pageNo - 1) * pageSize) + 1;
+      endIndex = pageNo * pageSize;
+      
+      stockBos = new ArrayList<>();
+      rs = stmt.executeQuery("select count(1) from stock order by stock_nm asc");
+      if(rs.next()) {
+        c = rs.getInt(1);
+      }
+      }catch(Exception e) {}
+    return r;    
+  }
+  
+  public List<StockBo> getStocksByPagination(int pageNo, int pageSize) {
+    List<StockBo> stockBos = null;
+    ResultSet rs = null;
+    StockBo bo = null;
+    int index = 1;
+    int startIndex = 0;
+    int endIndex = 0;
+    
+    try(Connection con = ConnectionFactory.newConnection(); 
+    Statement stmt = con.createStatement();) {
+      startIndex = ((pageNo - 1) * pageSize) + 1;
+      endIndex = pageNo * pageSize;
+      
+      stockBos = new ArrayList<>();
+      rs = stmt.executeQuery("select stock_nm, manufacturer, price from stock order by stock_nm asc");
+      
+      while(rs.next() && index <= endIndex) {
+        if(index >= startIndex) {
+          bo = new StockBo(rs.getString(1), rs.getString(2), rs.getDouble(3));
+          stockBos.add(bo);
+        }
+        index++;
+      }    
+    }catch(SqlException e) {
+      
+    }finally {
+      // close resources
+    }
+    return stockBos;
+  }
+}
+
+@WebServlet("/stocks")
+class ListStockServlet extends HttpServlet {
+  private final int pageSize = 3;
+  private StockService stockService;
+  
+  public void init() {
+    stockService = ObjectFactory.getObject(StockService.class);  
+  }
+  
+  public void service(req, resp) {
+    List<StockDto> stocks = null;
+    int pageNo = 1;
+    int totalRecords = 0;
+    int totalPages = 1;
+    String action = null;
+    
+    action = req.getParameter("action");
+    if(action == null) {
+      pageNo = 1;
+    }else if(action.equals("next")) {
+      pageNo = Integer.parseInt(req.getParameter("cPage"));
+      pageNo = pageNo + 1;
+    }else if(action.equals("prev")) {
+      pageNo = Integer.parseInt(req.getParameter("cPage"));
+      pageNo = pageNo - 1;
+    }
+        
+    stocks = stockService.getStocksByPagination(pageNo, pageSize);
+    totalRecords = stockService.getCountStocks();
+    totalPages = Math.ceil((double)totalRecords / pageSize);
+    
+    req.setAttribute("stocks", stocks);
+    req.setAttribute("totalPages", totalPages);
+    req.setAttribute("pageNo", pageNo);
+    req.getRequestDispatcher("/stocks.jsp").forward(req, resp);
+  }
+}
+
+stocks.jsp
+-----------
+
+<table border="1" style="border-collapse: collapse;">
+  <tr>
+    <th>StockName</th>
+    <th>Manufacturer</th>
+    <th>Price</th>
+  </tr>
+  <c:forEach items="${stocks}" var="stock">
+    <tr>
+      <td>${stock.stockName}</td>
+      <td>${stock.manufacturer}</td>
+      <td>${stock.price}</td>
+    </tr>
+  </c:forEach>
+</table>
+
+<c:if test="${pageNo gt 1}">
+  <a href="${pageContext.request.contextPath}/stocks?action=prev&cPage=${pageNo}">Previous</a>          
+</c:if>
+
+<c:if test="${pageNo lt totalPages}">
+  <a href="${pageContext.request.contextPath}/stocks?action=next&cPage=${pageNo}">Next</a>
+</c:if>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

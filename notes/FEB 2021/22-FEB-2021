@@ -1,0 +1,4 @@
+There is a pre-defined algorithm with fixed set of steps to be executed in specific order, where the algorithm is common across several classes with few differing steps as part of them. Then we need to use "Template Method" design pattern.
+
+Write a Template method in superclass with algorithm referring few concrete methods and few abstract methods. The abstract methods are being implemented by the corresponding sublcasses so that the common algorithm will not be duplciated across all the classes.
+  

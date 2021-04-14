@@ -1,0 +1,13 @@
+Factory design pattern:-
+Factories are used for creating the objects of other classes in our application.
+  
+Why do we need to use Factories for creating the object?
+There are 2 reasons why we use Factory class for creating the object of another class
+
+#1 to hide/abstract complexity in instantiating the object of other class from all the classes of our application.
+If an class has complex instantiation procedure in creating the object, then all the classes whoever needs the object of your class has to write the complex logic in creating the object of your class. So, if instantiation process of other class has been changed again we need to modify the code in all the classes.
+  
+Instead write the complex instantiation logic in a Factory class, that would take care of creating the object, so none of our classes needs to be aware of creating the object rather they would call Factory. So if instantiation process changes only Factory would gets affected.  
+  
+  
+  

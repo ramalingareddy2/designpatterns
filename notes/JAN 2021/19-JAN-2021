@@ -1,0 +1,152 @@
+class VoiceRecognizer {
+  private static VoiceRecognizer instance;
+  private VoiceRecognizer() {    
+  }
+  public static VoiceRecognizer getInstance() {
+    if(instance == null) {
+      instance = new VoiceRecognier();
+    }
+    return instance;
+  }
+}
+
+In a Multi-Threaded environment there is a possibility of having multiple objects of this class, as one thread is trying to create the object, if another thread also tries to create the object simultaneously, then there is a possibility that multiple threads will pass the "if condition" and results in multiple objects.
+
+To avoid the above problem, we should let only one thread at a time to create the object, once the first one completes creation of the object, then there is no chance the other would create one more object. As we wrote the code for creating the object of Singleton class in getInstance method dont let multiple threads to execute the method by using synchronization
+  
+class VoiceRecognizer {
+  private static VoiceRecognizer instance;
+  private VoiceRecognizer() {    
+  }
+  public synchronized static VoiceRecognizer getInstance() {
+    if(instance == null) {
+      instance = new VoiceRecognier();
+    }
+    return instance;
+  }
+}
+  
+Synchronization = permits threads to have serialized access to the underlying resource, where no 2 threads will execute at the same time in Synchronized construct
+
+Multi-Threading means multiple paths of execution, where more than 2 parts of my program can execute either simultaneously or concurrently, but by using synchronized keyword we are not letting multiple threads to execute the getInstance method simultaneously which poses a performance problem in slowing down the execution.
+  
+To overcome the performance problem to some extent we dont need to place the method level synchronization, as only the if condition block is creating the objects let us write block level synchronization rather than method level synchronization
+
+Object-Level Synchronization
+--------------------------------
+class A {
+  void synchronized m1() {}
+  void m2() {}
+  void synchronized m3() {}
+}
+
+
+Thread t1 = new Thread(()->{
+  A a = new A();
+  a.m1();
+}).start();
+
+Thread t2 = new Thread(()->{
+  A a = new A();
+  a.m3();
+}).start();
+  
+  
+Dont use method-level synchronization use block-level synchronization
+
+class VoiceRecognizer {
+  private static VoiceRecognizer instance;
+  private VoiceRecognizer() {    
+  }
+  public static VoiceRecognizer getInstance() {
+    synchronized(VoiceRecognizer.class) {
+      if(instance == null) {
+        instance = new VoiceRecognier();
+      }
+    }
+    
+    return instance;
+  }
+}
+  
+There are 2 types of synchronization are there
+1. object level synchronization = No 2 Threads are permitted to access any of the synchronized methods/blocks using the same object if those methods/blocks are synchronized at object level
+
+2. class level synchronization = No 2 threads are permitted to access any of the synchronized methods/blocks on any of the objects if those methods/blocks are synchronized at Class level
+  
+We can synchronize the code in 2 ways
+1. Method synchronization
+2. block synchronization
+
+  
+If we apply block level synchronization as the lock/unlock happens for every thread of execution we run into unnecessary performance problem. In order to optimize we can go for double-checking condition in creating a class as singleton class.
+
+Lazy Instantiation with double checking condition
+----------------------------------------------------
+class VoiceRecognizer {
+  private static VoiceRecognizer instance;
+  private VoiceRecognizer() {}
+  public static VoiceRecognizer getInstance() {
+    if(instance == null) {
+      synchronized(VoiceRecognizer.class) {
+        if(instance == null) {
+          instance = new VoiceRecognizer();
+        }
+      }
+    }
+    return instance;
+  }
+}
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

@@ -1,0 +1,36 @@
+What is decorator design pattern?
+We have an Component Interface with multiple Component Implementations. If we want to add some additional responsibilities to any of the Component Implementations of that interface without modifying the structure of the structure of the original class, then use Decorator Design pattern.
+
+abstract class MedicalInsurancePlan {
+  List<String> benefits;
+  List<String> networkCoverage;
+  float copayPercentage;
+  boolean requiredPreMedicalChecks;
+  // accessor methods
+}
+
+class SurakshaMedicalInsurancePlan extends MedicalInsurancePlan {}
+class MaxBupaMedicalInsurancePlan extends MedicalInsurancePlan {}
+
+class PlatinumBenefitsMedicalInsurancePlan extends MedicalInsurancePlan {
+  private MedicalInsurancePlan medicalInsurancePlan;
+  
+  public PlatinumBenefitsMedicalInsurancePlan(MedicalInsurancePlan medicalInsurancePlan) {}  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

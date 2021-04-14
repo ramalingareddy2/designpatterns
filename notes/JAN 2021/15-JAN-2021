@@ -1,0 +1,231 @@
+What is Singleton class, when do we call a class as Singleton?
+For a given class if it permits us to create only one object for it within the scope of application, then it is called Singleton class.
+
+Every class by default we create in Java is not singleton, we can create as many objects we want for a class. Then how to make the class as singleton?
+
+Irrespective of the approaches in creating a class as singleton, the 1st thing that we need to do is let us stop all the other classes in our application to to create the object of our class, so that we can get control over object creation and we can restrict no of objects we want to have for our class.
+
+How to stop all the other classes in our application to create the object for our class?
+Make the constructor of our class as private, so that no one else can create the object for our class apart from the class itself.
+
+class VoiceRecognizer {
+  private VoiceRecognizer() {}
+}
+
+The above declaration of the constructor will not makes the class as singleton there are many other things that we need to take care. There are multiple ways from here we can do to make the class as singleton.
+
+#1 Eager Instantiation
+
+
+
+class VoiceRecognizer {
+  // since we have to create only one object for this class let us create and assign to static variable so that those gets initialized only once and only one object will be created for our class.
+  
+  private static VoiceRecognizer instance = new VoiceRecognizer();  
+  private VoiceRecognizer() {}
+  public static VoiceRecognizer getInstance() {
+    return instance;
+  }
+}
+
+
+Here the object of the classes will gets created during the time of loading the class itself, not when we requested the object. as the object has been created much ealier during the startup time of the application, we can call it as Eager Instantiation which means the object is instantiated before/early to its usage.
+
+dis-advantage:-
+1. The startup time of our application will be high due to the object being created at the time of loading the class.
+2. Memory wastage, since the objects are pre-created before their usage, the jvm memory is occupied with unwanted objects.
+
+#2 static-block instantiation
+How many types of initializers are there in java for a class?
+1. static block
+2. instance block
+3. constructor
+
+#1 execution order
+#2 different between instance block and constructor
+Instead of directly creating the object at the static variable declaration line, we can even go for static-block instantiation as shown below.
+The static-blocks of a class are used for performing initializations at the time of loading the class, since the class would gets loaded into jvm memory only once, the static block gets executed only once. As we want only one object let us create the object and assign to a static variable of our class in static-block.
+
+When should we go for static-block instantiation?
+If we want to perform/execute some initialization logic during the time of creating the singleon class object then use static-block instantiation.
+
+class VoiceRecognizer {
+  private static VoiceRecognizer instance;
+  
+  // static-block initializers - during the time of loading the class only once will be executed
+  static {
+    // we can write code here in cooking up the object creation
+    // only we can use static variables here
+    instance = new VoiceRecognizer();
+  }
+  
+  private VoiceRecognizer() {}
+  
+  public static VoiceRecognizer getInstance() {
+    return instance;
+  }
+}
+
+dis-advantages:-
+We have the same problems we discussed with eagar instantiation.
+
+#3 Lazy Instantiation
+
+
+class VoiceRecognizer {
+  private static VoiceRecognizer instance; 
+  private VoiceRecognizer() {}
+  
+  public static VoiceReconizer getInstance() {
+    if(instance == null) {
+      instance = new VoiceRecognizer();
+    }
+    return instance;
+  }
+}
+
+The other classes of our application will takes the object of our class by calling getInstance() method whenever they want object.
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

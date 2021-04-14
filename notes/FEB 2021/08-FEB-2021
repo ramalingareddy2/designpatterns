@@ -1,0 +1,115 @@
+What is decorator design pattern?
+For a Component Interface, we have multiple Component implementation classes are there. So, for any of the Component implementation classes of that interface we want to add additional responsibilities/functionalities without affecting the structure of the original class.
+
+One way we can achieve it is through sub-classing, we can create sub-class for the concreate implementations of the interface and can add additional responbilities to the original classes by modifying the sub-classes. But in some cases the sub-classing does not seems to idle/best solution, because we end-up in creating multiple sub-classes. other problem here is across the subclasses of the different component implementations the code could become duplicate as well.
+How to solve the above problem?
+That is where we can achieve the solution for the above problem instead of through inheritance, we can use composition and implement decorator pattern.
+  
+  
+interface IceCream {
+  void prepare();
+  void freeze();
+  void serve();
+}  
+  
+class VanilaIceCream implements IceCream {
+  public void prepare() {
+    System.out.println("preparing vanila icecream");
+  }
+  public void freeze() {
+    System.out.println("Freezing the vanilla icecream at -5 degrees");
+  }
+  public void serve() {
+    System.out.println("Cutting the vanilla icecream scoop and serving in cup");
+  }
+}  
+  
+class ButterScotchIcecream implements IceCream {
+  public void prepare() {
+    System.out.println("preparing vanila butter scotch");
+  }
+  public void freeze() {
+    System.out.println("Freezing the butter scotch icecream at -7 degrees");
+  }
+  public void serve() {
+    System.out.println("Cutting the butter scotch icecream and serving in Cone");
+  }
+}  
+  
+  
+class FruitAndNutsIcecream implements IceCream {
+  IceCream iceCream;
+  public FruitAndNutsIcecream(IceCream iceCream) {
+    this.iceCream = iceCream;
+  }
+  public void prepare() {
+    iceCream.prepare();    
+    System.out.println("add nuts and fruits");
+  }
+  public void freeze() {
+    iceCream.freeze();
+  }
+  public void serve() {
+    iceCream.serve();
+  }
+}  
+  
+  
+IceCream iceCream = new ButterScotchIceCream();
+FruitAndNutsIceCream fruitAndNutsIceCream = new FruitAndNutsIceCream(iceCream);
+
+fruitAndNutsIceCream.prepare();
+fruitAndNutsIceCream.freeze();
+fruitAndNutsIceCream.serve();
+
+class ChocolateIcecream implements IceCream {
+  IceCream iceCream;
+  
+  public ChocolateIcecream(IceCream iceCream) {
+    this.iceCream = iceCream;
+  }
+  public void prepare() {
+    iceCream.prepare();    
+  }
+  public void freeze() {
+    iceCream.freeze();
+  }
+  public void serve() {    
+    iceCream.serve();
+    System.out.println("add chocolate");
+  }
+}  
+    
+  
+ChocolateIceCream chocolateIceCream  = new ChocolateIceCream(new FruitAndNutsIcecream(new VanilaIceCream()));  
+  
+  
+interface InputStream {}
+class FileInputStream implements InputStream {}
+class SocketInputStream implements InputStream {}
+class ByteArrayInputStream implements InputStream {}
+
+class BufferedInputStream implements InputStream {
+  InputStream inputStream;
+  
+  public BufferedInputStream(InputStream inputStream) {}
+  
+}
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

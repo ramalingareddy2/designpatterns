@@ -1,0 +1,73 @@
+class Truck {
+  String truckModel;
+  String manufacturer;
+  int yearManufacturing;
+  String color;
+  int tyres;
+  String fuelType;
+  String registrationNo;
+  String permitType;
+}
+
+class TruckFactory {
+  public static Truck createTruck(String truckModel, String manufacturer, int yearManufacturing, String color, int tyres, String fuelType, String registrationNo, String permitType) {
+    Truck truck = new Truck();
+    truck.setTruckMode(truckMode);
+    // populate the data
+    return truck;
+  }
+}
+
+
+Truck truck1 = TrunkFactory.createTruck("Large Truck", "Tata","2019","Blue", "10", "Diesel", "TS 09 AG 0202","all india");
+
+Truck truck2 = TrunkFactory.createTruck("Large Truck", "Tata","2019","Blue", "10", "Diesel", "TS 09 AG 0202","all india");
+
+
+Why do we need to go for Builder Pattern when we have Factory design pattern?
+Factories are used for creating the objects of another class, and we can still use a Factory for creating the object of another class by populating the data. But there are certain problems with Factory classes in asking them to create the object with data.
+We need to pass the data interms of parameters to factory method asking the factory to populate this data while creating the object of another class.
+  1. It is not recommended to declare more than 5 parameters as part of java class method, having more parameters will leads to confusion of passing them in calling the method.
+  2. If there are some optional attributes of our class, still those has to be declared as parameters in factory method asking the user to pass null/default value in case if we dont want to populate any data, it in-directly means all the declared parameters are mandatory.
+Looks like the parameters are being duplicated in instantiating the multiple objects the other class with same data.  
+To overcome the above problems use build design pattern
+
+  
+abstract class Truck {
+  String registrationNo;
+  String manufacturer;
+  String model;
+  String color;
+  int capacity;
+  int tyres;
+  String permitType;
+  String chasisNo;
+  String engineNo;
+  int engineCubicCapacity;
+  // accessors
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+

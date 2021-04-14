@@ -1,0 +1,131 @@
+What is Proxy Design Pattern, what is the purpose of it?
+Proxy classes acts as a substitue of the original class, those are also called as surrogate classes. It is called substitute of original because instead of talking to the original class we can talk to orignial class via proxy which also provides the same outcome of the original. Proxy classes also looks same as original class with same set of behaviours of the original.
+
+If proxies also returns the same outcome of the original, why we need proxies?
+Different classes of our application wants to use the original class by adding additional functionality on top of the original class. but the additional functionality will not affect the actual outcome of the original class rather it optimizes or enhances the original functionality.
+More over different classes wants to add various additional functionalities which are not common across all of the classes.
+
+Now adding up this additional funcationality directly into the original class will gets reflected for all of the classes whoever are using my original class. so to apply this additional functionality to certain classes only we need to write complex if/else logic which makes the code difficult read and unnecessary conditional overhead will be incurred while executing the code.
+Instead of adding the additional funcationality directly ontop of original class create proxies on original class.
+
+interface Netbanking {
+  double getBalance(String accountNo);
+}
+
+class INetbanking implements Netbanking {
+  public double getBalance(String accountNo) {
+    
+    // logic
+    return 2293;
+  }
+}
+
+class IMobileNetbanking implements Netbanking {
+  private Netbanking netbanking;
+  
+  public IMobileNetbanking() {
+    netbanking = new INetbanking();    
+  }
+  
+  public double getBalance(String accountNo) {
+    // apply token based authentication, if successful call orignal class
+    return netbanking.getBalance(accountNo);
+  }
+}
+
+class WebNetbanking implements Netbanking {
+  private Netbanking netbanking;
+  
+  public WebNetbanking() {
+    netbanking = new INetbanking();
+  }
+  
+  public double getBalance(String accountNo) {
+    // apply usernamepassword authentication
+    return netbanking.getBalance(accountNo);
+  }
+}
+
+class NetbankingFactory {
+  public Netbanking getNetbanking(String platform) {
+    Netbanking netbanking = null;
+    
+    if(platform.equals("mobile")) {
+      netbanking = new IMobileNetbanking();
+    }else if(platform.equals("web")) {
+      netbanking = new WebNetbanking();
+    }
+    return netbanking;
+  }
+}
+
+
+class MobileApplication {
+  public static void main(String args[]) {
+    Netbanking netbanking = NetbankingFactory.getNetbanking("mobile");
+    netbanking.getBalance(101022);
+    
+  }
+}
+
+The factory gives an illusion to all the classes that there are talking to original class only even though there are talking to proxy. Lets say tomorrow we want to get rid of proxy then we can modify the code in factory which brings us to orginal.
+  
+What is the difference between decorator and proxy design pattern?
+Both of them are same interms of implementation of the code. But the difference is the decorator modifies or replaces the functionality of the original classes this would affect the outcome of the original class, where as a proxy class will not modify the functionality of  the original class.
+  
+Filters in Servlet/Jsp are the example of decorator design pattern but not the proxy.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

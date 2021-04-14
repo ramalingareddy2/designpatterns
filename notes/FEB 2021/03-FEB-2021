@@ -1,0 +1,89 @@
+AbstractFactory Design pattern
+If we want to switch from one component family of implementations to another component family of implementations then we need to use "AbstractFactory" design pattern.
+  
+Factory of Factories design pattern.
+
+Theme:-
+  1. We have many component interfaces are there.
+  2. There are different vendors going to provide different implementations for the component interfaces
+  3. For instantiating the component family implementations we need Factory. The respective vendors has to provide factory for instantiating their implementations.
+    "There is a problem here": if every vendor provides his own factory for instantiating their implementations switching between component family implementations to others require huge amount of code change in all over the components of the application. 
+    "******Indirectly we can say using Vendor Factory we are tightly coupled to the Vendor*******"
+      
+  "To solve this problem": We need an API Factory declared with factory methods for instantiating the component interfaces.
+    abstract class FurnitureFactory { // api factory
+      abstract Chair newChair(String chairType); // factory methods for the component interfaces
+      abstract Table newTable(String tableType);
+      abstract Sofa newSofa(String sofaType);
+    }
+  Let the each vendor provide their own implementation Factories for instantiating their respective component implementation class objects.
+  
+  // These are vendor implementation factories for the api factory
+  class CelloFurnitureFactory extends FurnitureFactory {
+    public Chair newChair(String chairType) {
+      if(chairType.equals("plastic")) {
+        return new CelloPlasticChair();
+      }else if(chairType.equals("iron")) {
+        return new CelloIronChair();
+      }
+    }
+    .....
+  }  
+    
+  class NilkamalFurnitureFactory extends FurnitureFactory {
+    public Chair newChair(String chairType) {
+      if(chairType.equals("plastic")) {
+        return new NilkamalPlasticChair();
+      }else if(chairType.equals("iron")) {
+        return new NilkamalIronChair();
+      }
+    }
+    .....
+  }  
+  
+  Now as we have api factory with vendor implementation factories we can use api factory with vendor implementation factory, so that if we want to switch from one vendor to another, just change implementation factory name of the vendor.
+  
+  But in our application client classes if we are directly using the Vendor Factory Classnames in instantiting the object of Vendor Factory, then a switch from one vendor to another requires changes in all the classes of my application.
+  
+  To help us in abstracting the Vendor Factory Classname from all the classes we need one more factory.
+  Now we need to create one more Factory class, with static factory method for creating API Factory vendor implemenations as show below.
+  class FurnitureFactoryFactory {
+    public static FurnitureFactory newInstance() {
+      return new CelloFurnitureFactory();
+    }
+  }
+  Rather than creating one more Factory with static factory method, we can declare the static factory method directly in API Factory since it is an abstract class.
+  abstract class FurnitureFactory {
+    public static FurnitureFactory newInstance() {} // factory method for creating vendor implementation factory object
+    
+    abstract Chair newChair(String chairType); // factory methods for the component interfaces
+    abstract Table newTable(String tableType);
+    abstract Sofa newSofa(String sofaType);
+  }  
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+

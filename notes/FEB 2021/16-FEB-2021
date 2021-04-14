@@ -1,0 +1,187 @@
+Fly Weight Design Pattern
+Fly Weight design pattern helps us in reducing the memory footprint required in running an application.If memory is the key concern in running the application,for e.g.. if we are running our software application on small-scale devices (Mobiles, Embedded devices) which are having low computing capacity like RAM, CPU etc then we need to adopt Fly Weight design pattern to run application with less memory Footprint
+As it takes away the weight of the application to run this is called "Fly Weight" design pattern
+
+There are total 3 components are there
+1. Component Interface
+2. Multiple Component Implementations
+3. Component Interface Factory
+
+1. Component Interface = declare the behaviours that should be implemented by the sub-classes.
+2. Component Implementations = Implementation of the Interface behaviours
+
+While designing the interface/implementation design your classes by following the below guidelines.
+  
+Every class object holds 2 types of states
+1. Intrinsic State
+The data we store in attributes of the Object,which is common across all the instances of the class is called "Intrinsic State"
+  
+2. Extrinsic State
+The data we store in the attributes of Class Object, is specific to the object in which we are holding and differs for different Objects of the Class, such data we hold in attributes is called "Extrinsic State"
+  
+
+While writing the classes in our application identify the intrinsic and extrinsic state of the class objects, then remove extrinsic state of the object/declared as attributes of your class and pass it as parameters to the methods of the class whereever needed.
+There after the class only holds intrinsic state which means all of the objects of the class contains same data so we can avoid creating multiple objects of the class.
+  
+Now let all the other classes of our application use only one copy of the Object in the entire application. So inorder to achieve this,we need to declare the classes of such nature as Singleton.
+
+So we need to end-up in making several classes of our application as singleton which is a complex/time consuming job.
+In addition our application classes should identify which classes are "Singleton"/"Non-Singleton" to instantiate and use the class objects.
+  
+To solve the above problems, use ComponentFactory.
+The ComponentFactory takes care of instantiating all the implementations of that Component Interface and ensure only one Object of that type is created and returned to all the classes of our appliacation.
+  
+Now all the classes of our application shouldnot directly instantiate the object of any of the classes of our application, rather they should goto Factory class to create/get the object.
+  
+
+In Spring the default scope of the bean definition is "Singleton", because Spring Framwork encourages the developers to design the application as said above to reduce the memory footprint in running the application.
+Rather than making all the classes of our applicaiton as singleton, Spring has provided BeanFactory/ApplicationContext (ioc container) to manage and return only one object of our class.
+  
+class CsrBo {
+  int csrNo;
+  String designation;
+  int experience;
+  String fullName;
+  String mobileNo;
+  // accessors
+}  
+
+class CsrDto {
+  int csrNo;
+  String designation;
+  int experience;
+  String fullName;
+  String mobileNo;
+  // accessors
+} 
+
+class CsrDao {
+  public void saveCsr(CsrBo bo) {
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    Connection con = DriverManager.getConnection(url, un, pwd);
+    PreparedStatement pstmt = con.preparedStatement("insert into csr values(?,?,?,?,?)");
+    // substitute the parameters
+    pstmt.executeUpdate();
+  }
+}
+
+// BusinessDelegate is an layer that separates Presentation-Tier from Business/Persistence Tier of our application.
+class CsrBusinessDelegate {    
+  CsrDao dao; //intrinsic state
+  
+  public CsrBusinessDelegate() {
+    dao = AppFactory.getObject(CsrDao.class);
+  }
+  
+  public void addCsr(CsrDto csrDto) {     
+    //convert dto to bo
+    dao.saveCsr(csrBo);
+  }
+}
+
+class AddCsrServlet extends HttpServlet {
+  CsrDelegate csrDelegate;
+  
+  public void init() {
+    csrDelegate = AppFactory.getObject(CsrDelegate.class);
+  }
+  
+  public void service(HttpServletRequest request, HttpServletResponse response) {
+    CsrDto csrDto = null;
+    
+    //read the request parameters and wrap it into CsrDto 
+    csrDelegate.addCsr(csrDto);
+  }
+}
+  
+  
+class AppFactory {
+  
+}  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

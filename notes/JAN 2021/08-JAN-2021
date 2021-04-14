@@ -1,0 +1,54 @@
+
+Jee design pattern template
+1. Context = Overview of the problem
+2. Problem = That has to be solved is described in detail
+3. Forces = Reasons for using this pattern (or)
+  Circumstances that encourages in using this pattern
+  
+4. Solution
+  4.1 Structure = Diagramatic representation of the solution
+  4.2 Strategy =  Psuedo code in helping us understand how to implement the pattern
+5. Consequences = advantages and dis-advantages of using the pattern
+6. Related Patterns = other patterns we might want to lookat if you dont find the current pattern as relevant to your problem.
+  
+Pattern Catalog
+Pattern catalogs are the grouping of related patterns based on some criteria, so that people around the world who wants to use your design patterns find it easy to search witin the group.
+  
+GOF Pattern Catalog
+1. Creational Patterns = The problems in instantiating a single / group of objects are defined under creational patterns
+2. Structural Patterns = Relationship between the classes
+3. Behavioral Patterns = Communication between classes and objects
+
+JEE Application Architecture
+A Typical JEE Application comprises/divided into 5 Layers / 5 Tiers
+1. Client Tier = Client-Tier is the computer that we use to connect to the server application in accessing the application is called Client-Tier. At the Client-Tier we use different client-tier software applications like browser, applets to access the programs of the Server.
+  
+2. Presentation Tier
+3. Business Tier
+4. Integration Tier
+5. Resource Tier
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

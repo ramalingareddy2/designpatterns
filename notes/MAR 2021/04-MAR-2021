@@ -1,0 +1,48 @@
+Problem:-
+There are various different requests that are recieved by an Web Application, for which we need to apply different types of processing. So each request we have a dedicated handler responsible for processing the request. For most of the requests we can directly dispatch them to the Handler to perform operation, but for few requests we want to apply pre/post processing logic how can we handle it?
+  
+What type of pre/post processing logic we want to apply?
+These pre/post processing logics can varied of 2 types
+1. a bunch pre-conditions to be exected based on these outcome we want to execute the Handler to process the request.
+2. We wanted to modify the request/response data that is being sent as part of the request or dispatched as part of the response, before processing and after computing the response before delivering the response to the client.
+
+- In one way we can solve the above problem is to directly write the pre/post processing logic in all of the Handlers whereever we want to execute/apply them. There are many problems with this approach.
+  1. our request processing logic will be intermiggled around the conditions and becomes difficult to understand.
+  2. maintainability of the handler logic is going to be difficult
+  3. the code gets redundant across all of the handlers in which we written
+
+Forces:-
+  1. Centralized common processing logic
+  2. Services can be easily added or removed without effecting our target (or) handler
+
+Use Intercepting Filter design pattern to solve the above problems.
+Solution:-
+  Create a pluggable Filter components that takes care of perform common services without effecting the target component. These filters will be intercepted during the request/response phase of your application and might modify the request or modify the response during these phases.
+  These Filters should be configurable, so that we can easily add or remove them without effecting the target component.
+--------------------------------------------------------------------------------------------------------------  
+Problem#1 
+We want to apply a pre-conditional check for all request of our application, ensure the end-user is using Mozilla Firefox as a browser in accessing the application for better user experience, if not we wanted the user to be displayed an error page with information asking the user to use Mozilla
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

@@ -1,0 +1,140 @@
+Why do we need design patterns?
+Either programming languages or Application programming interfaces doesnt talk about.
+1. best pratices or code guidelines in writing the code
+2. bad practice how to avoid
+3. how can web apply solutions for a common problems
+4. how to refactor code from bad to the better solution
+
+So design patterns provides guidelines in building software applications, so that those are optimized and best at implementation by providing all the above.
+
+Evolution of design patterns?
+There are four people got motivated from the work done by Christopher Alexander and starting documenting/writing problems and solutions in developing applications on object oriented programming principles.
+1. Enrich Gama
+2. Ralph johnson
+3. john visidle
+4. Richard Helm
+Who are popularly known as gang of four and they come up with a book "Elements of Reusable Object oriented software"
+They captured problems and best solutions to be applied in solving them, for the applications being built-on object oriented programming principles,there are not specific to programming language.
+
+These patterns are often referred as "Core Patterns".
+
+In addition to the above the architects of sun microsystems having an experience on designing and developing applications on jee platform has gained enormous amount of experience in build applications. So they have identified common problems that we face while building applications on jee platform and document the best solutions to solve them and published as "Jee design patterns"
+
+What is a pattern?
+For a recurring problem under a context, there is a best applicable solution in solving the problem together documented to be called as "Design Pattern".
+In simple we can say design pattern as a 3-part rule
+1. problem = that should be solved
+2. context = under the circumstances in which problem arises
+3. solution = best possible solution to solve the problem.
+
+
+Pattern identification process?
+How are design patterns are identified and documented by anyone?
+While developers working on various different projects they might encouter problems, solve the problem and document problem with context and solution applied to solve it which put together is called a "Candidate Pattern".
+Over the time of working when the developer face another problem, before solving let him check whether the problem with context has matched with Candidate patterns he has already documented, if yes verify whether the same solution can be applied in solving it, if yes increment the releavance of the candidate pattern.
+In this way if the candidate pattern has achieved to some level of relevance, then we can document the circumstances of the problem and best solution to the world thus being called as a "design pattern".
+
+What is a pattern template?
+It is a standard structure that people has to establish in documenting their design patterns so that world can understand it quickly.
+
+Everyone has their own standard definition of design patterns, similary jee architects has comeup with a standard pattern template in documenting all the jee design patterns.
+
+What is the standard pattern template of jee design patterns?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

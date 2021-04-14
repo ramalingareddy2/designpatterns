@@ -1,0 +1,279 @@
+what is abstract factory pattern?
+We have Component Interfaces for which we have multiple component Family of implementations are there. We want to switch our application from one Component Family of implementations to another Component Family implementations easily then we need to go for AbstractFactory design pattern.
+Along with adding component family and removing family will have least impact when we use abstract factory design pattern.
+  
+interface Chair {}  
+--------------------
+class CelloPlasticChair implements Chair {}
+class CelloHardPlasticChair implements Chair {}
+
+class SupremeChair implements Chair {}
+
+class NilkamalNoHandsChair implements Chair {}
+class NilkamalRelaxChair implements Chair {}
+
+interface Table {}
+-------------------
+class Cello4SeaterTable implements Table {}
+class Cello6SeaterTable implements Table {}
+
+class Nilkamal4SeaterPlasicTable implements Table {}
+
+class SupremeTable implements Table {}
+
+interfact Sofa {}
+-------------------
+class CelloStandardSofa implements Sofa {}
+class Cello3Plus2Sofa implements Sofa {}
+
+class NilkamalLowHeightSofa implements Sofa {}
+class NilkamalBigSofa implements Sofa {}
+
+class SupremeSofa implements Sofa {}
+
+/**
+Vendor has to provide the Factory class to instantiate their respective implementations of the Component Interfaces, so that without knowing the underlying classnames of the implementations, my application can get the objects of the Component Interfaces */
+class CelloFurnitureFactory {
+  public static Chair createCelloChair(String chairType) {
+    if(chairType.equals("plastic")) {
+      return new CelloPlasticChair();
+    }else if(chairType.equals("hard plastic")) {
+      return new CelloHardPlasticChair();
+    }
+    return null;
+  }
+  public static Table createCelloTable(String tableType) {
+    if(tableType.equals("4 seater")) {
+      return new Cello4SeaterTable();
+    } else if(tableType.equals("6 seater")) {
+      return new Cello6SeaterTable();     
+    }
+    return null;
+  }
+  public static Sofa createSofa(String sofaType) {
+    if(sofaType.equals("standard") ) {
+      return new CelloStandardSofa();
+    }else if(sofaType.equals("3plus2")) {
+      return new Cello3Plus2Sofa();
+    }
+    return null;
+  }
+}
+
+
+
+/** 
+Provided Factory class for instantiating their own implementations
+*/
+class NilkamalFurnitureFactory {
+  public static Chair newNilkamalChair(String chairType) {
+    if(chairType.equals("nohands")) {
+      return new NilkamalNoHandsChair();
+    }else if(chairType.equals("relax")) {
+      return new NilkamalRelaxChair();
+    }
+  }
+  public static Table newNilkamalTable(String tableType) {
+    if(tableType.equals("4 seater plastic")) {
+      return new Nilkamal4SeaterPlasicTable();
+    } 
+    return null;
+  }
+  public static Sofa newNilkamalSofa(String sofaType) {
+    if(sofaType.equals("low height") ) {
+      return new NilkamalLowHeightSofa();
+    }else if(sofaType.equals("big")) {
+      return new NilkamalBigSofa();
+    }
+    return null;
+  }
+}
+
+class FurnitureDistributor {
+  public Chair sellChair(String chairType) {
+    Chair chair = null;
+    
+    chair = CelloFunitureFactory.createCelloChair(chairType);        
+    return chair;
+  }
+  
+  public Table sellTable(String tableType) {
+    Table table = null;
+    
+    table = CelloFurnitureFactory.createCelloTable(tableType);
+    return table;
+  }
+}
+
+class RetailShop {
+  public Chair sellChair(String chairType) {
+    Chair chair = null;
+    
+    chair = CelloFunitureFactory.createCelloChair(chairType);        
+    return chair;
+  }
+}
+
+In the above we are using Cello Vendor implementations in our code, if we want switch from component family of implementations to another component family then we need to re-write code.
+  
+So if we have concreate factories of the vendors, switching between vendors is very difficult so lets have a component interface factory for which each vendor provide their respective implementations for instantiating their own implementations.
+  
+
+application.properties
+manufacturer=supreme
+
+// Component Interface Factory
+abstract class FurnitureFactory {
+  /** static factory method that instantiates the vendor implementation of the FurnitureFactory */
+  public static FurnitureFactory newInstance() {    
+    FurnitureFactory furnitureFactory = null;
+    String manufacturer = null;
+    
+    /*manufacturer = System.getProperty("manufacturer");
+    if(manufacturer == null) {
+      // default
+      manufacturer = "cello";
+    }*/
+    Properties props = new Properties();
+    props.load(new FileInputStream(new File("d:\application.properties")));
+    
+    manufacturer = props.getProperty("manufacturer");
+    if(manufacturer == null) {
+      // default
+      manufacturer = "cello";
+    }
+    
+    if(manufacturer.equals("cello")) {
+      furnitureFactory = new CelloFurnitureFactory();
+    }else if(manufacturer.equals("nilkamal")) {
+      furnitureFatory = new NilkamalFurnitureFactory();
+    }
+    furnitureFactory;
+  }
+  
+  // factory methods for instantiating the component interface implementations of the vendors
+  Chair newChair(String chairType);
+  Table newTable(String tableType);
+  Sofa newSofa(String sofaType);
+}
+
+// Vendor implementation Factory
+class CelloFurnitureFactory extends FurnitureFactory {
+  public Chair newChair(String chairType ){
+    if(chairType.equals("plastic")) {
+      return new CelloPlasticChair();
+    }else if(chairType.equals("hard plastic")) {
+      return new CelloHardPlasticChair();
+    }
+    return null;
+  }
+  public Table newTable(String tableType) {
+   if(tableType.equals("4 seater")) {
+      return new Cello4SeaterTable();
+    } else if(tableType.equals("6 seater")) {
+      return new Cello6SeaterTable();     
+    }
+    return null;
+  }
+  public Sofa newSofa(String sofaType) {
+    if(sofaType.equals("standard") ) {
+      return new CelloStandardSofa();
+    }else if(sofaType.equals("3plus2")) {
+      return new Cello3Plus2Sofa();
+    }
+    return null;
+  }
+}
+
+// Vendor implementation Factory
+class NilkamalFurnitureFactory extends FurnitureFactory {
+  public Chair newChair(String chairType) {
+    if(chairType.equals("nohands")) {
+      return new NilkamalNoHandsChair();
+    }else if(chairType.equals("relax")) {
+      return new NilkamalRelaxChair();
+    }
+  }
+  public Table newTable(String tableType) {
+    if(tableType.equals("4 seater plastic")) {
+      return new Nilkamal4SeaterPlasicTable();
+    } 
+    return null;
+  }
+  public Sofa newSofa(String sofaType) {
+    if(sofaType.equals("low height") ) {
+      return new NilkamalLowHeightSofa();
+    }else if(sofaType.equals("big")) {
+      return new NilkamalBigSofa();
+    }
+    return null;
+  }
+}
+
+With the above we are able to achieve the standardization in instantitaing the objects of any vendor implementations through common interface factory.
+  
+class FurnitureDistributor {  
+  public Chair sellChair(String chairType) {
+    FurnitureFactory furnitureFactory = null;
+    Chair chair = null;
+    
+    furnitureFactory = FurnitureFactory.newInstance();
+    chair = furnitureFactory.newChair(chairType);
+    
+    return chair;
+  }
+  
+  public Table sellTable(String tableType) {
+    FurnitureFactory furnitureFactory = null;
+    Table table = null;
+    
+    furnitureFactory = FurnitureFactory.newInstance();
+    table = furnitureFactory.newTable(tableType);
+    return table;
+  }
+}
+
+
+class RetailShop {
+  public Chair sellChair(String chairType) {
+    FurnitureFactory furnitureFactory = null;
+    Chair chair = null;
+    
+    furnitureFactory = FurnitureFactory.newInstance();
+    chair = furnitureFactory.newChair(chairType);        
+    return chair;
+  }
+}
+
+java Test
+
+
+
+class SupremeFurnitureFactory extends FurnitureFactory {
+  public Chair newChair(String chairType) {
+    if(chairType.equals("default")) {      
+      return new SupremeChair();
+    }
+  }
+  public Table newTable(String tableType) {    
+    return new SupremeTable();
+  }
+  public Sofa newSofa(String sofaType) {    
+    return new SupremeSofa();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

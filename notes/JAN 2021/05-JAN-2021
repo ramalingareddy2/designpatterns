@@ -1,0 +1,227 @@
+Who has to attend this course?
+Target Audience?
+Those who has around 2+ years experience and want to upgrade their skill set in designing and developing distributed/enterprise software applications in Java Platform.
+  - quickly you will understand the application
+  - you can implement best-practises in writing the code
+  - become independent in designing the application requirement 
+
+What i should know to attend this course? [pre-requisite]  
+- Core Java
+  oops principle
+  abstract classes and interfaces
+  polymorphism
+  multi-threading
+  concurrency api
+  collections
+  i/o streams
+  serialization
+  exception handling
+  lamda expressions (optional)
+  streaming api (optional)
+  
+- Servlet/Jsp
+  - distributed web application concepts
+  - web servers, packaging models and application deployments
+  - servlet api (Servlet, GenericServet, HttpServlet)
+  - ServletConfig
+  - ServletContext
+  - RequestDispatcher
+  - Http Client State
+    - HttpSession    
+    - Cookie
+    - URL Rewriting
+  jsp:-
+  - scriplets  
+  - jsp action tags
+  - jsp declarative tags
+  - page directivies
+  - jstl (core tag library)
+    
+Good to have Spring (or) Struts (or) Jsf Framework Knowledge 
+
+
+Course Pattern:-
+Timings :- 9:45 am - 10:45 am (+/- 10 days)
+Duration: 45 days
+Notes: Live Class Room Notes 
+Monday - Saturday (Sunday optionally holiday)
+No videos / No Youtubes
+Fees: 3000/-
+faculty = tech.sriman@gmail.com
+course enquiry/registration = durgasoftonlinetraining@gmail.com
+-----------------------------------------------------------------------------------------------------------------------
+Contents of the Course
+2 Types of patters we are going to cover in this course.
+1. Core Patterns
+2. Jee Patterns
+-----------------------------------------------------------------------------------------------------------------------
+What is the purpose of design patterns?
+Based on the requirements provided by the business owner developer do build software application development to meet the requirements.In order to build applications developers need to choose a programming language.
+
+What does programming languages provides?
+They provide bunch of Application Programming Interfaces (API) using which developers can quickly produce software applications.
+None of the languages or APIs will not provide
+1. best practices in building application
+2. bad practices to be avoid
+3. coding guidelines and standards
+4. how to refactor an application into a best practise solution etc
+
+So, design patterns helps us in providing standard guidelines in designing and build software applications.
+
+How does the design patterns has been evolved from?
+There are group of 4 people = Elements of reusable object oriented software development
+Enrich Gama
+Ricard 
+Ralphjhonson
+Visidle
+
+The various problems that we encounter while building software applications based on object oriented programming principles, are captured and documented and are well popularlly known as Gang of Four design patterns.
+Most of their work has been documented in algorithmic approach rather than covering specific programming language which makes many of the people tough to understand.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+  

@@ -1,0 +1,46 @@
+How can we avoid duplicate form submission in an application?
+
+class DetectDoublePostingRequestFilter implements Filter {
+  public void doFilter(ServleRequest request, ServletResponse response, FilterChain chain) {
+    HttpServletRequest httpRequest = (HttpServletRequest) request;
+    HttpServletResponse httpResponse = (HttpServletResponse) response;
+    String token = null;
+    String clientToken = null;
+    String serverToken = null;
+    
+    // dont create a new session, if session already exists return, if not there for the client return null
+    HttpSession httpSession = httpRequest.getSession(false);
+    
+    if(httpSession == null) { // no comparision, just generate new token and send as part of response
+      token = UUID.randomUID().toString();
+      httpSession = httpRequest.getSession(true);
+      httpSession.setAttribute("serverToken", token);
+      httpRequest.setAttribute("clientToken", token);
+      chain.doFilter(req, resp);
+    }else {
+      if(httpRequest.getMethod().equals("POST")) {
+        clientToken = req.getParameter("clientToken");
+        serverToken = httpSession.getAttribute("serverToken");  
+        if(clientToken.equals(serverToken)) {
+          token = UUID.randomUID().toString();
+          httpSession.setAttribute("serverToken", token);
+          httpRequest.setAttribute("clientToken", token);
+          chain.doFilter(req, resp);
+        }else {
+          httpSession.invalidate(true);
+          httpResponse.sendRedirect("duplicate-form-detected.jsp");
+          return ;
+        }
+      }            
+    }    
+  }
+}
+
+
+
+
+
+
+
+
+

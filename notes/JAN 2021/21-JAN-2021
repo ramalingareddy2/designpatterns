@@ -1,0 +1,121 @@
+class VoiceRecognizer implements Cloneable {
+  private static VoiceRecognizer instance;
+  
+  private VoiceRecognizer() {}
+  public static VoiceRecognizer getInstance() {
+    
+    if(instance == null) {
+      synchronized(VoiceRecognizer.class) {
+        if(instance == null) {
+          instance = new VoiceRecognizer();
+        }   
+      }  
+    }
+         
+    return instance;
+  }
+  public Object clone() throws CloneNotSupportedException {
+    throw new CloneNotSupportedException();    
+  }
+}
+The above code always safegaurds your class from cloning..
+
+Serialization = process of converting the state of an object into bits and bytes.
+De-Serialization = process of building back the object from the bits and bytes
+
+Through serialization we tranform not only the data contained in attributes into bytes, rather the metadata of the underlying class also will be included in the bytes. For example we have a class A with 2 attribtues i and j as below.
+  
+class A {
+  int i;
+  int j;
+}
+A = new A(10, 20);
+when we serialize the object a not only 10 and 20 values will be converted into bytes format along with that the 10 belongs to which attribute and 20 belongs to which attribute and these are part of which class this metadata of the object also will be transformed into bytes format, so that java can use this information during the time of deserialization.
+  
+
+Why do we use serialization/deserialization?
+  
+The objects can be given an physical representation interms of bytes, so that we can use the state of the object in storing or transferring over the network.
+  
+We can store bits and bytes of data in a file, so unless the objects is transformed into bits and bytes format we cannot store in a file if we want, so use serialization which transforms the object into bits/bytes so that we can store it.
+
+Similary we can only transfer the data over the n/w in the form of bits and bytes, so to transfer jvm memory model of the object over the network, the state of the object should be converted into bytes, thats where serialization helps.
+  
+class A implements Serializable {
+  int i;
+}
+
+A a = new A();
+a.setI(10);
+
+What does serialization does?
+it transforms the memory model of an object into bytes, which raises a security concern because anyone can copy the state of the objects in the jvm using serialization technic and can steal the data. this makes the jvm volunerable.
+
+to have a controlled way of serializing the objects of class, java has added Serializable interface, unless a class implements from Serializable interface we cannot serialize the objects of the class.
+
+Who takes care of serializing and deserializing the objects of a class?
+jvm itself or the api classes of jvm will handle the process of serialization/deserialization, so there is no participation of Serializable interface in this process, Serializable interface is an marker interface only. Its way we restrict our classes not to be Serialized by default java has provided that interface.  
+
+  
+www.leawy.com/drive
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

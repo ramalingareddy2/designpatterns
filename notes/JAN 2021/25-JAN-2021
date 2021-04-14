@@ -1,0 +1,55 @@
+class Account implements Serializable {
+  private int accountNo;
+  private String accountHolderName;
+  private String accountType;
+  private double balance;
+  // accessors
+}
+
+There are 2 magic methods are there in serialization process
+externalization
+1. Object readObject(ObjectInputStream ois) {}
+2. void writeObject(ObjectOutputStream oos) {}
+
+data transformation
+3. Object readResolve() {}
+4. Object writeReplace() {}
+
+These methods are called magic methods as these are jvm contractual methods that jvm promise to call during the time of serialization/deserialization. and are no where declared as part of java api, like either in Object class or not part of any interface.
+  
+
+  
+class VoiceRecognizer implements Cloneable {
+  private static VoiceRecognizer instance;
+  private VoiceRecognizer() {}
+  
+  public static VoiceRecoginzer getInstance() {
+    if(instance == null) {
+      synchronized(VoiceRecognizer.class) {
+        if(instance == null) {
+          instance = new VoiceRecognizer();
+        }
+      }
+    }
+    return instance;
+  }  
+  public Object clone() throws CloneNotSupportedException {
+    throw new CloneNotSupportedException("doesnt support cloning");
+  }
+}  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

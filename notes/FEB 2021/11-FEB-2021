@@ -1,0 +1,2 @@
+What is adapter class, what is the use of Adapter?
+If there are any 2 classes whose interfaces are non-compatible. If those classes as to talk to each other then we need to write the logic for making those in-compatible interfaces compatible by using Adapter classes. So that we can avoid writing the conversion logic in making those interfaces compatiable in all the classes of our application.

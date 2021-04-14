@@ -1,0 +1,128 @@
+Data Access Object (DAO)
+
+
+In a java program we read the data from database and we perform operations on that data. For eg.. we have a table called stock, we want write a program that will tell you the total stock holding in our system.
+  Total value of the Stock
+
+stock
+stock_no   stock_nm      manufacturer    expiry_dt    quantity    amount
+1          rin soaps     rin             10/05/2021   10          1000
+2          dove shampoo  dove            01/12/2023   30          4500
+3          horlicks      horlicks        11/12/2021   12          6000
+
+
+class StockService {
+  public double getTotalStockHolding() {
+    Connection con = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    Date expirtyDate = null;
+    double stockPrice = 0;
+    double totalStock = 0;
+    Date today = null;
+
+    Class.forName(driverClassname);
+    con = DriverManager.getConnection(url, un, pwd);
+    stmt = con.createStatement();
+    rs = stmt.executeQuery("select * from stock");
+    today = new Date();
+
+    while(rs.next()) {
+      expiryDate = rs.getDate("expiry_dt");
+      if(today.compareTo(expiryDate) < 0) {
+        stockPrice = rs.getDouble("amount");
+        totalStock += stockPrice;
+      }
+    }
+    return totalStock;
+  }
+}
+
+In the above program we wrote 2 types of logics
+1. business logic = this is the logic that uses the data and perform operation
+2. data access / persistency logic = the lines of code we write for fetching/accessing the data from an source.
+
+Always it is not recommended to write data access logic together with business logic because we run into several problems.
+1. in the above code we wrote business logic along with persistency logic, so that business logic is exposed to the source system from where we are reading the data from. So, that if again there is a change in persistency-tier instead of from database to File System again we need to modify not only the data access logic even business logic needs to be modified, which is an additional maintainance overhead.
+2. If we want to apply the same business logic on multiple source systems then we need to write separate classes for accessing the data of the source system, as business logic kept together with the persistency logic, so business logic gets duplicated.
+3. If the underlying source system data format has been changed, again there will be an affect on persistency logic along with business logic also gets impacted.
+4. As 2 different types of logics are written together, it becomes complex to understand and difficult to maintain.
+
+To overcome the above problems always separate business logic from persistency logic and keep them in different classes. The class in which we write persistency logic in our application is called "DAO".
+
+The class in which we populate the data to perform business operation is called Business Object.
+class StockBo {
+  int stockNo;
+  String stockName;
+  String manufacturer;
+  Date expiryDate;
+  int quantity;
+  double amount;
+  // accessors
+}
+
+interface StockDao {
+  List<StockBo> getStock();
+}
+class StockDaoImpl implements StockDao {
+  public List<StockBo> getStock() {
+    StockBo stockBo = null;
+    List<StockBo> stockBos = null;
+    Connection con = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+
+
+    Class.forName(driverClassname);
+    con = DriverManager.getConnection(url, un, pwd);
+    stmt = con.createStatement();
+    rs = stmt.executeQuery("select * from stock");
+
+    while(rs.next()) {
+      stockBo = new StockBo();
+      stockBo.setStockNo(rs.getInt(1));
+      stockBo.setStockName(rs.getString(2));
+      // populate all the columns of the record in Object
+      stockBos.add(stockBo);
+    }
+    return stockBos;
+  }
+}
+
+class StockService {
+  private StockDao stockDao;
+  public double getTotalStockHolding() {
+    stockDao = new StockDaoImpl();
+    List<StockBo> stockBos = stockDao.getStock();
+    for(StockBo bo : stockBos) {
+      if(bo.getExpiryDate().compareTo(today) > 0) {
+        totalCost += bo.getAmount();
+      }
+    }
+    return totalCost;
+  }
+}
+From the above code we can understand that DAO helped us in separating the persistency logic from business logic. So that any changes in persistency layer will not affect the other parts of the application.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.

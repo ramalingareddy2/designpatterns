@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:webleaf-config
+	xmlns:tns="http://www.webleaf.com/config"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.webleaf.com/config ../../../../../webleaf/src/main/resources/META-INF/config/webleaf-config.xsd ">
+	<tns:command-configs>
+		<tns:command path="/postJob.web"
+			commandClass="com.jobghar.command.PostJobCommand">
+			<tns:outcome name="job-posted"
+				page="/job-posted-success.jsp" />
+		</tns:command>
+	</tns:command-configs>
+</tns:webleaf-config>

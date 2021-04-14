@@ -1,0 +1,96 @@
+What is Facade design pattern?
+Facade design pattern is used for decoupling a subsystem component from other subsystem components of the application. It is one of the Structural Design pattern in GOF design patterns.
+  
+A typical application comprises of multiple subsystems as part of it.
+Subsystem:- A subsytem is identified based on group of related functionalitied to be served together. 
+  
+How do we build a subsystem?
+A subsystem can be build by grouping the related components serves the same functionality based on package hierarchy. If it is more complex and enterprise systems where a subsystem can itself be deployed independent of other parts of the application then it is built separately and integrated into main system using distributed technology.
+  
+One subsystem component of my application may want to talk to other subsystem to reuse the functionality. If we allow our subsystem component to directly talk to the other subsystem there are lot of problems are there.
+  1. We should know what are all the components of the other system we should talk to use the functionality of the subsystem, that makes the subsystem integration complex
+  2. We need to understand the complex workflow interactions with other system components to reuse its functionality, so that we are tightly coupled with other system. any change in the other system components will directly affect our subsystem as well.
+  3. The workflow logic that we write in interacting with the subsystem components to use the functionality will become duplicated across all the parts of our system.
+  
+To overcome the above problems Facade design pattern is being used. So every susbstem has to build a Facade class with the workflow interaction logic in providing the functionality to the other subsystems. So all the other subsystems of our application without having any knowledge of the other subsystem can interact with the facade and can reuse the functionality which has all the advantages
+  1. easy to integrate subsystem components
+  2. I have a freedom of modifying the subsystem components without worrying about my changes breaks the other subsystem. because all other subsystems are talking to my subsystems components through facacde any changes in my subsystem components will not be exposed.
+  3. No need of building complex workflow interactions in reusing the functionality of other subsystems.
+  
+If you have a enterprise system being built then the subsystems exposes their business components using distributed technology like
+  1. rmi
+  2. ejb
+  3. webservices
+  4. restful services
+exposing such an business components of the subsystem at a granular level brings more problems
+along with the previous problems we discussed in Facade design  pattern below are the additional problems we encounter
+  1. More network interactions in reusing the functionality which increases network bandwith consumption
+  2. Network traffic will be more
+  3. Performance degration of the application.
+
+To reduce the network interactions between the subsystem components instead of explosing granular components as distributed components build SessionFacade as a distributed component which takes of talking to local system components in serving the business functionality to the other subsystems over the network.
+  
+-----------------------------------------------------------------------------------------------------------  
+Service Locator design pattern
+------------------------------
+In our subsystem inorder to interact with the other distributed system we need to write the code to acquire the references of the distributed component. 
+  like rmi lookup logic
+      ejb lookup logic
+      web services/restful client api logic
+If we write lookup logic in all the components of our subsystem in aquiring the distributed components of other system, the lookup logic gets duplicated across all the components of our application, which pushes us into several maintainability problems.
+  1. if the other subsystem components has been moved from one environment to another env, then ip, port and credentails to be used in interacting with the other system will change, so again the lookup logic has to be modified all over the places,
+  2. similarly if the platform on which these components are running has been migrated again we need to modify the lookup logic
+  3. if technology of the remote application component has been changed again we need to modify the lookup logic and has to rewrite completely a different logic
+  
+So inorder to protected our subsystem from such changes happening in other system we use servicelocator design pattern.
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

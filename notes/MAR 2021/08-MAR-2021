@@ -1,0 +1,121 @@
+ValueListHandler
+Its an one of the implementation of pagination pattern. We want to access a data set of records from database and want to present them as part of the user interface. If all the records of the table are being accessed and displayed as part of user interface we run into several problems.
+1. More amount memory will be consumed and there is a chance of our application running into out of memory issues because of hold large dataset of objects in jvm memory
+2. The data transfer between database and application server and application server to browser will be more, this increases the bandwidth consumption of your network
+3. The performance of the application will killed because of huge data transfer between the application and client
+4. Even though we display all of the records in browser, the end-user would be interested at couple of records only, which makes the end user read the large rows of tables difficult.
+
+To address the above problem implement pagination.
+pagination is the process of accessing subset of records page by page and display them as part of the user interface of the application.
+The pagination works based on three attributes
+1. pageNo = the user is in which page
+2. pageSize = no of records to be displayed as part of user interface
+3. sortColumn = always the dataset while accessing should be sorted based on a sortColumn to ensure user can locate the data quickly with the pages he is browsing.
+
+There are 2 places we need to implement pagination logic
+1. at data access tier level
+2. user interface level
+
+
+pageNo=2
+pageSize=3
+
+4 - 6
+startIndex = (pageNo-1)* pageSize + 1;
+endIndex = pageNo * pageSize;
+
+class StockDao {
+  public int getNoOfStocks() {
+    Connection con = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    int r =0;
+    stockBos = new ArrayList<>();
+    con = ConnectionFactory.newConnection();
+    stmt = con.createStatement("select count(1) from stock");
+    rs = stmt.executeQuery();
+    if(rs.next()) {
+      r = rs.getInt(1);
+    }
+    return r;
+  }
+  
+  public List<StockBo> getStock(int pageNo, int pageSize) {
+    Connection con = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    int startIndex = 0;
+    int endIndex = 0;
+    int index = 1;
+    List<StockBo> stockBos = null;
+    StockBo bo = null;
+    
+    stockBos = new ArrayList<>();
+    con = ConnectionFactory.newConnection();
+    stmt = con.createStatement("select * from stock");
+    startIndex = (pageNo-1) * pageSize + 1;
+    endIndex = pageNo * pageSize;
+    while(rs.next() && index > endIndex) {
+      if(index >= startIndex && index<= endIndex) {
+        bo = new StockBo(rs.getString(1), rs.getString(2), rs.getDouble(3));
+        stockBos.add(bo);
+      }
+    }
+    return stockBos;
+  }
+}
+
+class ListSockServlet extends HttpServlet {
+  final int pageSize = 3;
+  private StockService stockService;
+  public void init() {
+    stockService = ObjectFactory.getObject(StockService.class);
+  }
+  public void service(HttpServletRequest request, HttpServletResponse response) {
+    List<StockDto> stockDtos = null;
+    int totalRecords = 0;
+    int pageNo = 1;
+    String action = null;
+    
+    action = request.getParameter("action");
+    if(action == null) {
+      pageNo = 1;
+      stockDtos = stockService.getStock(pageNo, pageSize);      
+    }else {
+      
+      pageNo = Integer.parseInt(request.getParameter("pageNo"));
+      
+      
+    }
+    
+    request.setAttribute("stock", stockDtos);
+    request.getRequestDispatcher("/list-stocks.jsp").forward(request, response);    
+  }
+}
+
+list-stock.jsp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

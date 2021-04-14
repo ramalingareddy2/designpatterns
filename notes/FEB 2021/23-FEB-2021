@@ -1,0 +1,7 @@
+Proxy design pattern
+Proxies are the classes that acts as substitute of the original classes, these are also called as "Surrogate" classes. 
+Proxies looks exactly the same as original classes, talking to the proxy internal takes care of talking to the original class in providing the actual functionality. Proxy classes never alter the outcome of the original functionality.
+
+What is the use of proxy in having the original functionality? Why we cannot directly use the original class if proxy is not going to modify the original functionality?
+There are many applications of the proxy in the real world of implementations.
+

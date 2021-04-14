@@ -1,0 +1,82 @@
+Serialization/Deserialization = Converting the state of an object into bits/bytes format is called Serialization.
+The process of building back the object state from bits/bytes that are serialized early is called De-Serialization.
+
+Why do we need to use serialization/deserialization?
+There are 2 general/common reasons for serialization and deserialization of class objects.
+  We want to write the state of an object into bits/bytes format so that
+  1. we can persist and retrieve the data from a file
+  2. we can transfer the bits of object over the network to other place
+
+In serialization, along with the data contained in attributes, it gathers the metadata information about the class object indicating which values belongs to which attributes of what class. So that while building back the object from the bits, java can construct the object properly.
+
+Why by default every class in java is not serialization?
+every class in java is not serializable by default due to security concerns, if an object in the jvm can be serializable, there is always threat that someone steals state of the object by serializing it and will transfer. So serialization is something that is allowed on a java class in controlled way. Only for the classes that required serialization only, let the developer mark it by implementing from Serializable interface so that jvm allows to serialize and deserialize the object.
+  
+Java has provided api classes for working with serialization and deserialization. ObjectInputStream and ObjectOutputStream are the classes we should use for serialization/deserialization
+pass the object we want serialize to ObjectOutputStream so that it transforms the object into bits/bytes, now you can write the object into any place may be we can collects the bits into an byteArray, File, Socket N/w
+This indicates ObjectOutputStream should always be associated with an OutputStream.
+  
+
+Similary ObjectInputStream will reads the bits/bytes of data from an source (InputStream) and converts the bytes into object format, here in order for ObjectInputStream to create object of the class, the relevant class should be available under the classpath.  
+ObjectInputStream has to be always passed with InputStream while creating so that it can read the data from a Source.
+  
+class Account implements Serializable {  
+  // optional, in case if we dont define the serialVersionUID for a class, 
+  // jvm will generate one by default during the process of serialization
+  private static final long serialVersionUID = 030300L;
+  
+  int accountNo;
+  String accountHolderName;
+  String accountType;
+  double balance;
+  // setters & getters
+}  
+
+class SerializationTest {
+  public static void main(String[] args) {
+    //serialize();
+    Account account = deserialize();
+    sop(account);
+  }
+  
+  public static Account deserialize() {
+    ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("d:\\account.ser")));
+    Account account = ois.readObject();
+    return account;
+  }
+  
+  public static void serialize() {
+    Account account = new Account();
+    account.setAccountNo(10);
+    account.setAccountHolderName("Mishra");
+    account.setAccountType("savings");
+    account.setBalance(19099);
+    
+    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("d:\account.ser"));
+    oos.writeObject(account);
+    oos.close();
+  }
+}
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  

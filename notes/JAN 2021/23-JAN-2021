@@ -1,0 +1,161 @@
+Serialization / DeSerialization = Converting the state of object into bits/bits is called "Serialization".
+build back the object with data from the serialized bits/bytes of data is called "DeSerialization"
+  
+serialVersionUID = it acts as an version no for class and would be generated based on the members/methods of the class by the jvm using serialver tool.
+
+serialVersionUID is used during the deserialization in identifying whether the version of the class we are using is matching with the class we have used during serialization. If there is mis-match version jvm throws an exception not letting us to deserialize the object.
+  
+serialVersionUID helps us in correlating the class version used during serialization/deserialization.
+even though it is not mandatory to write serialVersionUID as part of a class, but it is recommended. if we dont write the serialVersionUID jvm at runtime during the time of serializing/deserializing the object will generate and use it. There is always a chance that a different serialVersionUID might be generated even the class we used is same serialized one because of many reason like jdk version, machine on which we are deserializing could be different etc so that the deserialization process will fail.
+  
+So if we write the serialVersionUID for the class, then jvm will not generate one at the runtime, so that if we are using the same class irrespective of the machine/jdk versionUID is same and deserialization will not fail. When we modify the class we can always update the serialVersionUID manually be generating it again.
+
+  
+class Account {  
+  String accountNo;
+  String accountHolderName;
+  String accountType;
+  double balance;
+  
+} 
+
+class LoanAccount extends Account implements Serializable {
+  int tenure;
+  String loanType;
+  double sanctionedAmount;
+  // accessors
+}
+
+LoanAccount loanAccount = new LoanAccount(); // it will serialize without exception
+-> loanAccount data will be serialized
+ <- deserialization
+
+
+ObjectInputStream and ObjectOutputStream 2 classes we can use for serialization/deserialization.
+
+1. do we need a default constructor for a class to be used for serialization/deserialization?
+  not required, a class constructor will not called during the time of serialization/deserialization at all.
+2. how to avoid serializing an attribute of a class?
+  declare it as transient
+3. is there any chance where a constructor might be invoked during the process of deserialization?
+  Yes if our classes are in Inheritance relationship where the super class is not implementing from Serializable interface and only the subclass is implementation Serializable interface. In this case the super class attributes will not participate in serializable process, so during the time of deserialization to initialize the attributes of the super class, the constructor of the super class will be called.
+    
+4. quote an example of where have you used transient keyword?
+    
+class Account {  
+  String accountNo;
+  String accountHolderName;
+  String accountType;
+  double balance;
+  
+} 
+
+class LoanAccount implements Serializable {
+  transient Account account;
+  int tenure;
+  String loanType;
+  double sanctionedAmount;
+  // accessors
+}
+-----------------------------------------------------------------------------------------------------------------------
+
+  
+streaming api
+functional interface
+default methods
+static methods
+lambda expressions
+collections
+exception handling
+garbage collector
+spring annotations (primary, autowired, componentscan)
+spring orm - spring + jpa integration
+aop - throwsAdvice
+
+boot
+datajpa
+
+micro services
+feign
+circuit breaker
+micro services architecture
+saga design pattern
+fault tolerance
+hystrix
+actuator (endpoints)
+ci/cd
+jenkins/docker
+
+devops with aws
+ec2
+ecs (kubernetes)
+cloud watch
+dynamodb
+rds
+lambda
+ecr
+bean stalk
+vpc
+subnet
+vpn
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

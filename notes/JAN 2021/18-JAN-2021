@@ -1,0 +1,41 @@
+1. eager instantiation
+2. static-block instantiation
+3. lazy instantiation
+
+Lazy Instantiation
+-------------------
+class VoiceRecognizer {  
+  private static VoiceRecognizer instance;
+  private VoiceRecognizer() {}
+  
+  public static VoiceRecognizer getInstance() {
+    if(instance == null) {
+      instance = new VoiceRecognizer();
+    }    
+    return instance;
+  }
+}
+
+Thread - Independent path of execution of a program/process is called "Thread"
+In the above VoiceRecognizer class, there is a chance of creating multiple objects of the class in "Multi-Threaded" environment.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

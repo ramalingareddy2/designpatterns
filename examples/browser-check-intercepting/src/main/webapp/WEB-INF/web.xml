@@ -1,0 +1,33 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+	<filter>
+		<filter-name>userAgentFilter</filter-name>
+		<filter-class>com.bci.filters.UserAgentFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>userAgentFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>getAccountBalanceServlet</servlet-name>
+		<servlet-class>com.bci.servlets.GetAccountBalanceServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ifscCodeFinderServlet</servlet-name>
+		<servlet-class>com.bci.servlets.IfscCodeFinderServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>getAccountBalanceServlet</servlet-name>
+		<url-pattern>/balance</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ifscCodeFinderServlet</servlet-name>
+		<url-pattern>/ifsc</url-pattern>
+	</servlet-mapping>
+</web-app>

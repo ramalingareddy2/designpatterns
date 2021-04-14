@@ -1,0 +1,16 @@
+There is nothing as such called "Factory Design Pattern" exists. No one has defined or documented such a pattern called Factory, its just a programming convienence of writing the code over which it has became a standard practise of writing Factories.
+
+There are only 2 types of Factory patterns are there
+1. Factory Method design pattern
+2. Abstract Factory design pattern
+-----------------------------------------------------------------------------------------------------------------
+#1 Factory Method design pattern
+Across the Factories if we want to acheive standardization in creating object of a Family of related components we need to go for Factory Method design pattern.
+
+
+
+
+
+
+
+

@@ -1,0 +1,154 @@
+static-block instantiation
+---------------------------
+
+// since the static block gets executed only once within the lifetime of the application, there will be only one object of our class would gets created, so that we are storing and distributing the same object here.
+class VoiceRecognizer {
+  private static VoiceRecognizer instance;
+    
+  static {
+    instance = new VoiceRecognizer();
+  }
+  private VoiceRecognizer() {  
+  }
+  public static VoiceRecognizer getInstance() {
+    return instance;
+  }
+}
+
+As we are creating the object of our class in a static-block to ensure only one object of our class would gets created, we call this approach as static-block instantiation mechanism.
+  
+There are problems with this approach.
+  1. Application startup takes more time as the objects are pre-created at the time loading the class itself
+  2. jvm memory is wasted because of creating the objects early to their usage.
+
+What is the difference between eager instantiation and static-block instantiation when to use what?
+----------------------------------------------------------------------------------------------------
+if we want to perform some initialization during the time of object creation then go for static-block instantiation otherwise use eager instantiation mechanism.
+    
+When to use eager and static-block instantiation    
+------------------------------------------------
+We can use Eager Instantiation and Static-block instantiation mechanisms in making a class as singleton when the singleton class is mandatory for our application to work. There is nothing wrong in pre-instantiating the object before its usage as anyhow we are are going to use the object.
+  
+  
+In case if the Singleton class we are creating seems to be optional and may not be always required to be used as part of our application then using eager/static-block instantiation is not recommended go for Lazy Instantiation mechanism
+
+Lazy Instantiation Mechanism
+-----------------------------
+Instead of pre-creating the object for our singleton class during the time of loading the class, we want to delay the object creation util the other classes request the object for it.
+  
+class VoiceRecognizer {
+  private static VoiceRecognizer instance;
+  
+  private VoiceRecognizer() {}
+  
+  public static VoiceRecognizer getInstance() {
+    if(instance == null) {
+      instance = new VoiceRecognizer();  
+    }
+    
+    return instance;
+  }
+}  
+Here we are creating the object within the getInstance() method so that object for this class would be created only on-demand. As the object instantiation process has been delayed until requested it is called "Lazy Instantiation Mechanism"
+  
+difference between instance-block and constructor
+1. We can pass parameters to constructor, but we cannot pass arguments to instance block
+2. always a class should have atleast one constructor to use it, but an instance block necessarily not required
+3. The can be several constructors in a class but only one of it is being executed while creating the object but incase of instance block we can have multiple and all of them being executed while creating the object
+4. constructors has access modifier but instance blocks doesnt have modifiers.
+5. if we have some common instantiation logic that need to be executed always irrespective of the way we are creating the object instead of writing that logic in all the constructors write in instance block so that it would not gets duplicated.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+

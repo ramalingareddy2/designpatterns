@@ -1,0 +1,98 @@
+Template Method design pattern
+
+
+class CropLoanManager {
+  public void processLoan(LoanApplication application) {
+    // check the demographic information
+     -> reject the loan
+     -> proceed for identity check
+    // verify the identify of the person
+    -> reject the loan
+    -> proceed for verifying bank account information
+    // verfiy bank account information
+    -> reject the loan
+    -> check eligibility criteria
+    // whether the crop is eligible for loan
+    -> compute eligbility amount
+    -> issue standing instructions to the bank asking them to issue the loan to the farmer.
+  }
+}
+
+class FisheriesLoanManager {
+  public void processLoan(LoanApplication application) {
+    // check demographic information is valid or not
+    if(notValid) {
+      return the loan
+    }else {
+      // check for identity information
+      if(notValid) {
+        reject loan
+      }else {
+        // proceed for bank verification
+        if(notValid) {
+          reject loan
+        }else {
+          // check for loan eligibility
+          if(not Eligible) {
+            return loan
+          }else {
+            // calculate estimated amount
+            // pass standing instructions certificate to the person asking the bank to issue the loan
+          }
+        }
+      }
+    }
+  }
+}
+
+abstract class LoanManager {
+
+  // template method
+  public void processLoan(LoanApplication application) {
+    
+  }
+  
+  boolean checkDemographicInformation(LoanApplication application) {}
+  boolean verifyIdentity(LoanApplication application) {}
+  boolean verifyBankaccountInformation(LoanApplication application) {}
+  abstract boolean checkElibilityCriteria(LoanApplication application);
+  abstract double getElibilityAmount(LoanApplication application);
+}
+
+class CropLoanManager extends LoanManager {}
+class FisheriesLoanManager extends LoanManager {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

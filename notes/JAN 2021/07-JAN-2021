@@ -1,0 +1,84 @@
+What is a design pattern?
+For a recurring problem under a context there is a best applicable solution that can be applied for solving the problem, which together being documented and is called "Design Pattern".
+
+We can express design pattern as 3 part rule
+1. problem = that has to be solved
+2. context = circumstances under which the problem appears
+3. solution = which can be applied for solving the problem
+
+Pattern identification process?
+If the relevance of the candidate pattern has reached to certain level, then we can turn it as a design pattern by publishing to the world.
+
+Pattern Template
+is the standardized structure that anyone has to following in documenting their design pattern so that people around the world can quickly read and understand the design pattern to use it.
+There is no Universal Standard Pattern Template exists, rather everyone should comeup with their own structure of documenting their design pattern.
+
+For e.g.. all the gang of four design patterns follow a pattern template and all jee patterns follows their own pattern template.
+What is the pattern template of jee design patterns?
+
+1. Context = high-level/overview of the problem
+2. Problem = carries the description of the problem that has to be solved.
+3. Forces = circumstances under which you need to use this pattern
+(or)
+reason that forces you to use this pattern
+4. Solution:
+   3.1 Structure: diagrammatic representation of the solution
+   3.2 Strategy: algorithmic code / psuedo code helping us to understand how to implement that design pattern
+5. Consequences: pros and cons of applying or using this pattern
+6. Related Patterns: if this pattern doesnt fits for your requirement which other patterns you might explore to solve your problem
+-----------------------------------------------------------------------------------------------------------------------
+Pattern Catalog
+Within a bunch of patterns identifying and use a relevant pattern that solves the problem is going to be very tough and time taking, instead the author of design patterns can group the design patterns to catalogs so that people can browse the catalog to identify the pattern rather than a whole.
+
+Based on the patterns they documented the pattern catalogs will differ.
+In case of Gang of Four design patterns as they have documented many of the patterns they grouped the patterns into 3 catalogs
+1. Creational Patterns = it documents the problems and solutions related to instantiation of a object or group of objects.
+  # Singleton
+  # Prototype
+  # factory method
+  # abstract factory
+  # builder
+  
+2. Structural Patterns = how to establish relationship between classes
+  # Adapter
+  # Bridge
+  # Composite
+  # Decorator
+  # Facade
+  # Fly Weight
+  # Proxy
+  
+3. Behavioral Patterns = communication between classes and objects
+  # Chain of Responsibility
+  # Command
+  # Interpretor
+  # Iterator
+  # Mediator
+  # Momento
+  # Observer
+  # State
+  # Strategy
+  # Template Method
+  # Visitor
+  
+Similar Jee patterns are also classified into pattern catalogs based on the jee application architecture.
+1. Presentation-Tier
+2. Business-Tier
+3. Integration-Tier
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

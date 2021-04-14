@@ -1,0 +1,70 @@
+Front Controller Design Pattern
+We come across the front controller design pattern as part of all web model view controller frameworks like
+jsf, struts, spring web mvc. Most of the mvc frameworks are designed based on front controller design pattern only.
+
+Front controller is a commonly used design pattern in web applications development, there are many reasons why we use front controller.
+
+There are different types of request that comes to an web application, these requests requires different types of processing, so we need to have inidividual handlers (servlets) for each type of requests. 
+
+We may want to apply some common processing logic to all the request that are coming to our application. The common processing logic could be
+  1. conditional check in accepting the request
+  2. it could be some mandatory processing that should be performed to have the actual request being processed etc
+
+Where can I write such common processing logic that should be applied to all the request of my application?
+Intercepting Filter is not an ideal solution, because intercepting filters are used for applying pre/post processing logic to only a group of requests that are coming to our applicaton, and these optional and can configurable. But the common processing we want to apply here is mandatory and should be applied to all the request of my application in this case intercepting filter is not suitable.
+  
+One solution to this problem is let us write common processing logic across all the controlers/handlers of our application, but this makes the code duplicated across all of the handlers of my application. 
+
+Instead of this we can place the common processing logic in a separate component, have it being called by all the handlers of our application. We have problem here to
+- the code for calling the common processing logic gets duplicated across all the handlers
+- even though all handlers should call it becomes optional
+
+How to solve the problem of applying mandatorily the common processing logic to all the request of my applicaton?
+Here is where Front Controller comes into picture. Every request that is send to the application should be recieved first in place by the Front Controller, so that he can apply the common processing logic that has to be applied for all the requests, once after the request will be dedicated to the corresponding handler.
+  
+What are the responsibilities of Front Controller, what does it do?
+If we want to apply some common processing logic that should be applied for all the request that are coming to our application then we use front controller
+  1. Front controller acts as an single entry point into our application, so that it would be easy to achieve control over accepting the requests into our application
+  2. it acts as a common gateway of receiving the request into our application so that we can perform various operations on all the request before the request are delegated to the handler.
+  3. We can apply an mandatory processing logic that should be applied to have the request being handled
+  4. We can apply certain plumbing/ancillary services that should be applied for all our requests of the application
+  5. We can perform centralized view management and navigation management for our application.
+    
+How to implement a Front Controller for an application?
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

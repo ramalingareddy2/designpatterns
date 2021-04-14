@@ -1,0 +1,50 @@
+ApplicationController = To share responsibilities of the FrontController and to encourage modularity Application Controller has been introduced.
+
+- Front Controller = receive the request and apply few common processing logics and to further apply the processing it dispatches the request to Application Controller will perform additional common processing and finally dispatches the request to the handler of the Request.
+
+What is the primary reason for using Application Controller?
+There are 2 goals of Application Controller.
+1. Application Controller ensures our application components are agnostic to the underlying application protocol over which we are receiving the requests.
+  
+interface Command {
+  String process(HttpServletRequest request, HttpServletResponse response);
+}
+class AddStockCommand implements Command {
+  public String process(HttpServletRequest request, HttpServletResponse response) {
+    // Your code will works with only http protocol
+    
+  }
+}
+
+In the above interface of the Command our process(..) methods are taking HttpServletRequest/HttpServletResponse as parameters from which we are reading the data and performing the operation within implementation class. So that the code written inside the Command class are tightly coupled with Http protocol and will not work with any other underlying protocol.
+
+Where as if we use ApplicationController, it takes the responsibility of extracting the request data from the procotol objects and bind it to ContextObject and pass it as an input to Command class.
+
+ContextObject:- it is a java class, where the object of this class is used for storing/holding the data which can be passed as an input to Command class in a protocol agnostic manner. ContextObject helps us in abstracting the underlying protocol over which the data has been received.
+  
+We have 2 strategies of implementing ContextObject
+1. Bean ContextObject = For each form we submit, we have to create a dedicated java bean class with corresponding attributes defined to hold the request data of the form into its object. So that application controller takes the responsibility of extracting the data from request and binds that to the bean attributes and pass it as an input to Command class.
+Bean ContextObject strategy has a limitation = it supports static forms only, if pages are going to have dynamic controls then we cannot use Bean ContextObject.
+  
+2. Map ContextObject = In a Map ContextObject we bind request/response data into Map separately so that any fields of data being send from client can be populated to request map and any data can be binded into response map and can served as a response.
+  
+2. Goal of an application controller is to improve testability of your components of your application.
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

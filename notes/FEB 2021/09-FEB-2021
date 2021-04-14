@@ -1,0 +1,137 @@
+What is decorator design pattern?
+We have a Component Interface, with multiple Component Implementations are available, across any of these Component implementations we want to add additional responsibilities without modifying the structure of the original class.
+Without modifying the structure of original class, we can add additional responsibilities to the class by using sub-classing (through Inheritance). But sometimes the Inheritance may not be the right solution, because of too many no of Subclasses.
+
+Instead of subclassing we can go for decorator through Composition.
+Decorator classes exactly looks same as the original class by implementing the Component Interfaces and keeps hold the the Component Interface Implementation object as an attribute to decorate. Always we pass original implementation object as an input while creating the object of Decorator class and calls method on Decorator which internally talks to original object and adds additional capabilities to original outcome.
+  
+
+abstract class MedicalInsurancePlan {
+  List<String> benefits;
+  List<String> networkCoverage;
+  float copayPercentage;
+  boolean requiredPreMedicalChecks;
+  
+  abstract List<String> benefits();
+  abstract List<String> networkCoverage();
+  abstract float copayPercentage();
+  boolean requiredPreMedicalChecks();
+}  
+
+class SurakshaMedicalInsurancePlan implements MedicalInsurancePlan {
+  public SurakshaMedicalInsurancePlan() {
+    benefits = new ArrayList();
+    benefits.add("30 days post hospitalization coverage");
+    benefits.add("low copay");
+    
+    networkCoverage = new ArrayList();
+    networkCoverage.add("Apollo Hospitals");
+    networkCoverage.add("Star Health Hospitals");
+    
+    copayPercentage = 10;
+    requiredPreMedicalChecks = true;
+  }
+  
+  public List<String> benefits() {
+    return benefits;
+  }
+  List<String> networkCoverage() {
+    return networkCoverage;
+  }
+  float copayPercentage() {
+    return copayPercentage;
+  }
+  boolean requiredPreMedicalChecks() {
+    return requiredPreMedicalChecks;
+  }
+}
+  
+  
+class MaxBuppaMedicalInsurancePlan implements MedicalInsurancePlan {
+  public SurakshaMedicalInsurancePlan() {
+    benefits = new ArrayList();
+    benefits.add("40 days post hospitalization coverage");
+    benefits.add("low copay");
+    benefits.add("No pre-approval required for Admission");    
+    
+    networkCoverage = new ArrayList();
+    networkCoverage.add("Choose your own network hospitals");    
+    
+    copayPercentage = 10;
+    requiredPreMedicalChecks = true;
+  }
+  
+  public List<String> benefits() {
+    return benefits;
+  }
+  List<String> networkCoverage() {
+    return networkCoverage;
+  }
+  float copayPercentage() {
+    return copayPercentage;
+  }
+  boolean requiredPreMedicalChecks() {
+    return requiredPreMedicalChecks;
+  }
+}
+  
+class UltimateMedicalInsurancePlan extends MedicalInsurancePlan {
+  private MedicalInsurancePlan medicalInsurancePlan;
+  
+  public UltimateMedicalInsurancePlan(MedicalInsurancePlan medicalInsurancePlan) {
+    this.medicalInsurancePlan = medicalInsurancePlan;
+  }
+  
+  public List<String> benefits() {
+    medicalInsurancePlan.benefits().add("Dental Coverage");
+    medicalInsurancePlan.benefits().add("Child Care");
+         
+    return benefits;
+  }
+  
+  public List<String> networkCoverage() {
+    return medicalInsurancePlan.networkCoverage().add("any");
+  }
+  
+  public float copayPercentage() {
+    medicalInsurancePlan.setCopayPercentage(medicalInsurancePlan.copayPercentage/2);
+    return medicalInsurancePlan.copayPercentage();
+  }
+  public boolean requiredPreMedicalChecks() {
+    medicalInsurancePlan.setRequiredPreMedicalChecks(false); 
+    return medicalInsurancePlan.requiredPreMedicalChecks();
+  }
+}  
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  

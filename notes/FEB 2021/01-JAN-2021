@@ -1,0 +1,117 @@
+What is Factory Method design pattern ?
+There are Multiple Factory classes which are responsible for instantiating Multiple Component Family implementations, across all of these factories we want to standardize the process of Instantiating the object of Component Implementations then we need to use Factory Method design pattern.
+
+How to implement FactoryMethod design pattern?
+1. We need to have component interface with multiple component implementations.
+2. create an abstract base factory class, in which we need to declare one factory method one component family interface and delegate the instantiation of the actual implementation classes of the component interface to child factories by declaring an abstract method in base factory.
+3. Let the super class factory takes the responsibility of calling the subclass methods for actual implementations to be instantiated and up getting the objects from child factories, apply the standard procedure in creating the object and return it.
+
+Now the Client instantiates the appropriate subfactory classes by holding the object in abstract base factory reference variable and calls factory method of base class to instantiate the corresponding implementation.
+----------------------------------------------------------------------------------------------------------------
+Abstract Factory Design Pattern
+is an popular and widely used design pattern in the oops based applications. The java has achieved api/implementation loosely coupling through abstract factory design pattern, that is the reason to be called as "popular".
+definition: There are multiple family of component implements are there for a component interface where the application should be able to easily switch from one component family to the another component family easily without modifying the code or should be able add another family of component implementations, then use abstract factory design pattern.
+short:- Factories of Factory
+
+  
+interface Chair {
+  void specification();
+}  
+class CelloPlasticChair implements Chair {}
+class CelloHardPlasticChair implements Chair {}
+
+interface Table {}
+class Cello4SeaterTable implements Table {}
+class Cello6SeaterTable implements Table {}
+
+interfact Sofa {}
+class CelloStandardSofa implements Sofa {}
+class Cello3Plus2Sofa implements Sofa {}
+
+class CelloFurnitureFactory {
+  public static Chair createCelloChair(String chairType) {
+    if(chairType.equals("plastic")) {
+      return new CelloPlasticChair();
+    }else if(chairType.equals("hard plastic")) {
+      return new CelloHardPlasticChair();
+    }
+    return null;
+  }
+  public static Table createCelloTable(String tableType) {
+    if(tableType.equals("4 seater")) {
+      return new Cello4SeaterTable();
+    } else if(tableType.equals("6 seater")) {
+      return new Cello6SeaterTable();     
+    }
+    return null;
+  }
+  public static Sofa createSofa(String sofaType) {
+    if(sofaType.equals("standard") ) {
+      return new CelloStandardSofa();
+    }else if(sofaType.equals("3plus2")) {
+      return new Cello3Plus2Sofa();
+    }
+    return null;
+  }
+}
+
+Nilkamal Component Family
+--------------------------
+class NilkamalNoHandsChair implements Chair {}
+class NilkamalRelaxChair implements Chair {}
+
+class Nilkamal4SeaterPlasicTable implements Table {}
+
+class NilkamalLowHeightSofa implements Sofa {}
+class NilkamalBigSofa implements Sofa {}
+
+
+class NilkamalFurnitureFactory {
+  public static Chair newNilkamalChair(String chairType) {
+    if(chairType.equals("nohands")) {
+      return new NilkamalNoHandsChair();
+    }else if(chairType.equals("relax")) {
+      return new NilkamalRelaxChair();
+    }
+  }
+  public static Table newNilkamalTable(String tableType) {}
+  public static Sofa newNilkamalSofa(String sofaType) {}
+}
+
+
+class FurnitureDistributor {
+  public Chair sellChair(String chairType) {
+    Chair chair = CelloFurnitureFactory.createCelloChair(chairType);
+    return chair;
+  }
+  public Table sellTable(String tableType) {
+    Table table = CelloFurnitureFactory.createTable(tableType);
+    return table;
+  }
+}
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

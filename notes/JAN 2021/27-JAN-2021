@@ -1,0 +1,75 @@
+Factory Pattern = Factories are used for creating the object of another class in our application.
+Why we should use Factories for creating the object of another class, why we cannot directly create the object by ourselves?
+There are 2 reasons why we use Factory classes
+1. To abstract/hide complexity in creating the object of another class in  our application from other classes.
+2. Without knowing the name of the other class we can get the object of the class.
+  
+
+
+#1 abstract/hide complexity in instantiating the object:-
+There are some classes which we cannot directly instantiate the object using new operator, in order for creating the object of those classes we need to use complex instantiation logic in creating the objects of the classes.
+  
+If there are many classes in our application using such classes in creating object, then all of the classes has to be written with complex instantiation logic there by all of them will be exposed to the complex instantiation process. So that if the object instantiation has been changed, then we need to modify the classes whoever are instantiating the object again.
+  
+To avoid the above problem we need to use Factory class.
+Factory class will have static factory method containing the logic for creating the object of another class.
+
+class Job {
+  JobConfig jobConfig;
+  public int execute() throws JobExcecutionFailedException {
+    
+  }
+}  
+class JobConfig {
+  String extensionType;
+  String algorithm;
+  int threads;
+  int batchSize;
+  // accessors
+}
+  
+sorting-job-config.properties
+----------------------
+extensionType=.dat
+threads=2
+batchSize=50
+  
+  
+class JobManager {
+  public void launchJob(String algorithm) {
+      
+  }
+}
+
+class JobFactory {
+  public static Job createJob(String alorithm) {
+    
+  }
+}
+
+#2 Without using the concreate classname of another class we can get the object of another class using the Factory, so that our classes will be loosely coupled from the classname of the another class.
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

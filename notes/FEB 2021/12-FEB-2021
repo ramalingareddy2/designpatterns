@@ -1,0 +1,3 @@
+Adapter design pattern:-
+If we have any 2 classes wants to talk to each other, but their interfaces are in-compatible with each other. Then to make a class talk to another class, we need write additional code in making the interfaces compatilble, this code has to be written across all of the classes which are talking to the other class. instead of it build an adapter class which takes care of the incompatible problems so that all the class can talk through adapter to the other class.
+
